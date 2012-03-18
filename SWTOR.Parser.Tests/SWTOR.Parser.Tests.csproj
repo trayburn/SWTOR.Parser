@@ -58,6 +58,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseParserTest.cs" />
     <Compile Include="ParserTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -86,5 +87,10 @@
       <Project>{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}</Project>
       <Name>SWTOR.Parser</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Samples\combat_20120301T14181.txt" />
+    <EmbeddedResource Include="Samples\LogFileOne.txt" />
+    <Content Include="Samples\combat_20120301T14373.txt" />
   </ItemGroup>
 </Project>
