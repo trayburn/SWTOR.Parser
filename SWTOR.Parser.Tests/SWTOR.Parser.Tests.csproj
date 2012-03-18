@@ -58,6 +58,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseFileParserTest.cs" />
     <Compile Include="BaseParserTest.cs" />
     <Compile Include="ParserTests.cs" />
   </ItemGroup>
@@ -89,8 +90,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Samples\combat_20120301T14181.txt" />
+    <Content Include="Samples\LogFileThree.txt" />
     <EmbeddedResource Include="Samples\LogFileOne.txt" />
-    <Content Include="Samples\combat_20120301T14373.txt" />
+    <EmbeddedResource Include="Samples\LogFileTwo.txt" />
   </ItemGroup>
 </Project>

@@ -56,8 +56,15 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ability.cs" />
+    <Compile Include="Actor.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Effect.cs" />
+    <Compile Include="Event.cs" />
+    <Compile Include="GameObject.cs" />
+    <Compile Include="LogEntry.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="Result.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
