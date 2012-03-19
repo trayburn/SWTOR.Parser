@@ -7,6 +7,87 @@ using System.Reflection;
 
 namespace SWTOR.Parser.Tests
 {
+    [TestClass]
+    public class PTRXXLargeLog_ParserTests : BaseFileParserTest
+    {
+        public override string FileName
+        {
+            get { return "PTRXXLargeLog.txt"; }
+        }
+        public override int NumberOfRecords
+        {
+            get { return 10713; }
+        }
+    }
+
+    [TestClass]
+    public class PTRXLargeLog_ParserTests : BaseFileParserTest
+    {
+        public override string FileName
+        {
+            get { return "PTRXLargeLog.txt"; }
+        }
+        public override int NumberOfRecords
+        {
+            get { return 9963; }
+        }
+    }
+
+    [TestClass]
+    public class PTRLargeLog_ParserTests : BaseFileParserTest
+    {
+        public override string FileName
+        {
+            get { return "PTRLargeLog.txt"; }
+        }
+
+        public override int NumberOfRecords
+        {
+            get { return 5534; }
+        }
+    }
+
+    [TestClass]
+    public class PTRMediumLog_ParserTests : BaseFileParserTest
+    {
+        public override string FileName
+        {
+            get { return "PTRMediumLog.txt"; }
+        }
+
+        public override int NumberOfRecords
+        {
+            get { return 3364; }
+        }
+    }
+
+    [TestClass]
+    public class PTRSmallLog_ParserTests : BaseFileParserTest
+    {
+        public override string FileName
+        {
+            get { return "PTRSmallLog.txt"; }
+        }
+
+        public override int NumberOfRecords
+        {
+            get { return 1113; }
+        }
+    }
+
+    [TestClass]
+    public class LogFileThree_ParserTests : BaseFileParserTest
+    {
+        public override string FileName
+        {
+            get { return "LogFileThree.txt"; }
+        }
+
+        public override int NumberOfRecords
+        {
+            get { return 3249; }
+        }
+    }
 
     [TestClass]
     public class LogFileTwo_ParserTests : BaseFileParserTest

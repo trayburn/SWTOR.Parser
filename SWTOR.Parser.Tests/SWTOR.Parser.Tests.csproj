@@ -90,8 +90,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Samples\LogFileThree.txt" />
+    <EmbeddedResource Include="Samples\LogFileThree.txt" />
     <EmbeddedResource Include="Samples\LogFileOne.txt" />
     <EmbeddedResource Include="Samples\LogFileTwo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Samples\PTRMediumLog.txt" />
+    <EmbeddedResource Include="Samples\PTRXLargeLog.txt" />
+    <EmbeddedResource Include="Samples\PTRXXLargeLog.txt" />
+    <EmbeddedResource Include="Samples\PTRSmallLog.txt" />
+    <EmbeddedResource Include="Samples\PTRLargeLog.txt" />
   </ItemGroup>
 </Project>
