@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "DPS";
+}
+<h2>SWTOR Combat Log Parser</h2>
+
+<p>This website will accept the text of a combat log and then parse the log into JSON objects. 
+ The API can be called from any other website, simply "View Source" on this page for an example of how it can be done.
+ the table being output below is not at all inclusive of all parsed data, it is merely meant to prove that the parsing works.</p>
+
+<p>If you do not have a log of your own, simply click on the sample data button and we'll load a small sample log for you.
+</p>
+
+<form id="combatForm" method="post" action="/API/AnalyzeDPS">
+    <textarea id="combatLog" name="combatLog" style="width:100%;height:400px;"></textarea><br />
+    <input type="submit" value="Parse Log" />
+    <input type="button" onclick="loadData();" value="Load Sample Data" />
+</form>
+<br />
+<div id="output"></div>
+<div id="tableData"></div>
+
+<script>
+    $(document).ready(
+        function () {
+            $("#combatForm").ajaxForm({
+                dataType: 'json',
+                success: function (data) {
+                    var colors = ['#ff0000', '#00ff00', '#0000ff', '#ff00ff', '#ffff00', '#00ffff'];
+                    var myChart = new JSChart('output', 'line');
+
+                    var countLine = 0;
+                    for (var i in data) {
+                        myChart.setDataArray(data[i], i);
+                        myChart.setLineColor(colors[countLine], i);
+                        countLine += 1;
+                    }
+
+                    myChart.setLegendShow(true);
+                    myChart.setSize(900, 900);
+                    myChart.draw();
+                    $('#tableData').append(CreateTableView(data)).fadeIn();
+                }
+            });
+        }
+    );
+</script>
+<script>
+    function loadData() {
+        var content = '';
+        content += '[03/01/2012 15:00:41] [@@Khantni] [@@Twos] [Sundering Assault {807806038966272}] [RemoveEffect {836045448945478}: Armor Reduced {807806038966564}] ()\r\n';
+        content += '[03/01/2012 15:00:56] [@@Khantni] [@@Khantni] [Trauma (PVP) {632923560607744}] [RemoveEffect {836045448945478}: Trauma (PVP) {632923560607744}] ()\r\n';
+        content += '[03/01/2012 15:49:44] [@@Khantni] [@@Khantni] [Unnatural Might {1781509484707840}] [RemoveEffect {836045448945478}: Unnatural Might {1781509484707840}] ()\r\n';
+        content += '[03/01/2012 15:49:44] [@@Khantni] [@@Khantni] [Unnatural Might {1781509484707840}] [RemoveEffect {836045448945478}: Coordination {1781509484708107}] ()\r\n';
+        content += '[03/01/2012 15:49:44] [@@Khantni] [@@Khantni] [Unnatural Might {1781509484707840}] [RemoveEffect {836045448945478}: Hunters Boon {1781509484708111}] ()\r\n';
+        content += '[03/01/2012 15:49:44] [@@Khantni] [@@Khantni] [Unnatural Might {1781509484707840}] [RemoveEffect {836045448945478}: Mark of Power {1781509484708115}] ()\r\n';
+        $('#combatLog').val(content);
+    }
+</script>
+
+
+<h2>DPS</h2>

@@ -56,15 +56,17 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ability.cs" />
-    <Compile Include="Actor.cs" />
+    <Compile Include="Analyzer.cs" />
+    <Compile Include="Domain\Ability.cs" />
+    <Compile Include="Domain\Actor.cs" />
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Effect.cs" />
-    <Compile Include="Event.cs" />
-    <Compile Include="GameObject.cs" />
-    <Compile Include="LogEntry.cs" />
+    <Compile Include="Domain\Effect.cs" />
+    <Compile Include="Domain\Event.cs" />
+    <Compile Include="Domain\GameObject.cs" />
+    <Compile Include="Domain\LogEntry.cs" />
+    <Compile Include="DpsPerCharacter.cs" />
     <Compile Include="Parser.cs" />
-    <Compile Include="Result.cs" />
+    <Compile Include="Domain\Result.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
