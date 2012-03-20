@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTOR.Parser", "SWTOR.Parser.csproj", "{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTOR.Parser", "SWTOR.Parser\SWTOR.Parser.csproj", "{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTOR.Parser.Tests", "SWTOR.Parser.Tests\SWTOR.Parser.Tests.csproj", "{204E1E03-BABB-4B2E-AC43-7B6D3C87E918}"
 EndProject

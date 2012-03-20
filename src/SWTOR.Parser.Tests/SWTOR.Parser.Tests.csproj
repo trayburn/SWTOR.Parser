@@ -84,12 +84,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SWTOR.Parser.csproj">
-      <Project>{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}</Project>
-      <Name>SWTOR.Parser</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Samples\LogFileThree.txt" />
     <EmbeddedResource Include="Samples\LogFileOne.txt" />
     <EmbeddedResource Include="Samples\LogFileTwo.txt" />
@@ -100,5 +94,11 @@
     <EmbeddedResource Include="Samples\PTRXXLargeLog.txt" />
     <EmbeddedResource Include="Samples\PTRSmallLog.txt" />
     <EmbeddedResource Include="Samples\PTRLargeLog.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SWTOR.Parser\SWTOR.Parser.csproj">
+      <Project>{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}</Project>
+      <Name>SWTOR.Parser</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
