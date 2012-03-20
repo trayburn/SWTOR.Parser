@@ -25,11 +25,12 @@
                 dataType: 'json',
                 success: function (data) {
                     var newContent = '<table border=1>';
-                    newContent += '<tr><th>Source</th><th>Target</th><th>Ability</th><th>Event</th><th>Effect</th><th>Result</th>';
+                    newContent += '<tr><th>Timestamp</th><th>Source</th><th>Target</th><th>Ability</th><th>Event</th><th>Effect</th><th>Result</th>';
                     newContent += '<th>Amount</th><th>Type</th><th>IsCritical</th><th>Threat</th></tr>';
                     for (var item in data) {
                         var e = data[item];
                         newContent += '<tr>';
+                        newContent += '<td>' + new Date(parseInt(e.timestamp.substr(6))) + '</td>';
                         newContent += '<td>' + e.source.name + '</td>';
                         newContent += '<td>' + e.target.name + '</td>';
                         newContent += '<td>' + e.ability.name + '</td>';

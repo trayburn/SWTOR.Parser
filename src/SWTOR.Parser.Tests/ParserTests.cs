@@ -118,7 +118,46 @@ namespace SWTOR.Parser.Tests
             get { return 2416; }
         }
     }
+    [TestClass]
+    public class MyClass : BaseParserTest
+    {
+        public override void BuildTestString(StringBuilder bldr)
+        {
+            bldr.AppendLine("[03/17/2012 19:45:01] [@Argorash] [@Argorash] " + 
+                "[Heroic Moment: Call on the Force {1412666283261952}] " + 
+                "[ApplyEffect {836045448945477}: Heroic Moment: Call on the Force {1412666283261952}] ()");
+        }
 
+        [TestMethod]
+        public void Parse_Should_Return_Entry_Correctly()
+        {
+            // Arrange
+
+
+            // Act
+            var list = target.Parse(rdr);
+
+            // Assert
+            var entry = list.First();
+            Assert.AreEqual(new DateTime(2012, 3, 17, 19, 45, 1, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Argorash", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Argorash", entry.target.name);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Heroic Moment: Call on the Force", entry.ability.name);
+            Assert.AreEqual(1412666283261952, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Heroic Moment: Call on the Force", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(1412666283261952, entry.@event.effect.number);
+            Assert.AreEqual(0, entry.@event.result.amount);
+            Assert.AreEqual(false, entry.@event.result.isCritical);
+            Assert.AreEqual("", entry.@event.result.type);
+            Assert.AreEqual("", entry.@event.result.mitigation.name);
+            Assert.AreEqual(0, entry.@event.threat);
+        }
+    }
     [TestClass]
     public class OneRowWithZeroDamageButHangingDash_ParserTests : BaseParserTest
     {

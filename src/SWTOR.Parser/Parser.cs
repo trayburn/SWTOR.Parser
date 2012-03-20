@@ -112,7 +112,7 @@ namespace SWTOR.Parser
             // [ApplyEffect {836045448945477}: Stunned (Physical) {2848585519464704}]
             // [ApplyEffect {836045448945477}: Lucky Shots {1781496599806223}]
             var btwn = Between('[', ']', line);
-            var splitFound = btwn.FoundValue.Split(':');
+            var splitFound = btwn.FoundValue.Split(new[] { ':' }, 2);
             var rest = btwn.Rest;
 
             btwn = Between('{', '}', splitFound[0]);
