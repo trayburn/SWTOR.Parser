@@ -140,23 +140,23 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 47, 11, DateTimeKind.Unspecified), entry.Timestamp);
-            Assert.AreEqual("Twos", entry.Source.Name);
-            Assert.AreEqual(true, entry.Source.IsPlayer);
-            Assert.AreEqual("Khantni", entry.Target.Name);
-            Assert.AreEqual(true, entry.Target.IsPlayer);
-            Assert.AreEqual("Affliction (Force)", entry.Ability.Name);
-            Assert.AreEqual(808192586023173, entry.Ability.Number);
-            Assert.AreEqual("ApplyEffect", entry.Event.Name);
-            Assert.AreEqual(836045448945477, entry.Event.Number);
-            Assert.AreEqual("Damage", entry.Event.Effect.Name);
-            Assert.AreEqual("", entry.Event.Effect.Subtype);
-            Assert.AreEqual(836045448945501, entry.Event.Effect.Number);
-            Assert.AreEqual(0, entry.Event.Result.Amount);
-            Assert.AreEqual(false, entry.Event.Result.IsCritical);
-            Assert.AreEqual("", entry.Event.Result.Type);
-            Assert.AreEqual("", entry.Event.Result.Mitigation.Name);
-            Assert.AreEqual(209, entry.Event.Threat);
+            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 47, 11, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Twos", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Khantni", entry.target.name);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Affliction (Force)", entry.ability.name);
+            Assert.AreEqual(808192586023173, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Damage", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.@event.effect.number);
+            Assert.AreEqual(0, entry.@event.result.amount);
+            Assert.AreEqual(false, entry.@event.result.isCritical);
+            Assert.AreEqual("", entry.@event.result.type);
+            Assert.AreEqual("", entry.@event.result.mitigation.name);
+            Assert.AreEqual(209, entry.@event.threat);
         }
     }
 
@@ -181,23 +181,23 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 41, 33, DateTimeKind.Unspecified), entry.Timestamp);
-            Assert.AreEqual("Twos", entry.Source.Name);
-            Assert.AreEqual(true, entry.Source.IsPlayer);
-            Assert.AreEqual("Twos", entry.Target.Name);
-            Assert.AreEqual(true, entry.Target.IsPlayer);
-            Assert.AreEqual("Resurgence", entry.Ability.Name);
-            Assert.AreEqual(808699392163840, entry.Ability.Number);
-            Assert.AreEqual("ApplyEffect", entry.Event.Name);
-            Assert.AreEqual(836045448945477, entry.Event.Number);
-            Assert.AreEqual("Heal", entry.Event.Effect.Name);
-            Assert.AreEqual("", entry.Event.Effect.Subtype);
-            Assert.AreEqual(836045448945500, entry.Event.Effect.Number);
-            Assert.AreEqual(1485, entry.Event.Result.Amount);
-            Assert.AreEqual(true, entry.Event.Result.IsCritical);
-            Assert.AreEqual("", entry.Event.Result.Type);
-            Assert.AreEqual("", entry.Event.Result.Mitigation.Name);
-            Assert.AreEqual(0, entry.Event.Threat);
+            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 41, 33, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Twos", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Twos", entry.target.name);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Resurgence", entry.ability.name);
+            Assert.AreEqual(808699392163840, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Heal", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(836045448945500, entry.@event.effect.number);
+            Assert.AreEqual(1485, entry.@event.result.amount);
+            Assert.AreEqual(true, entry.@event.result.isCritical);
+            Assert.AreEqual("", entry.@event.result.type);
+            Assert.AreEqual("", entry.@event.result.mitigation.name);
+            Assert.AreEqual(0, entry.@event.threat);
         }
     }
 
@@ -222,22 +222,22 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 25, 55, DateTimeKind.Unspecified), entry.Timestamp);
-            Assert.AreEqual("Idrurrez", entry.Source.Name);
-            Assert.AreEqual(true, entry.Source.IsPlayer);
-            Assert.AreEqual("", entry.Target.Name);
-            Assert.AreEqual("Seethe", entry.Ability.Name);
-            Assert.AreEqual(808226945761280, entry.Ability.Number);
-            Assert.AreEqual("Event", entry.Event.Name);
-            Assert.AreEqual(836045448945472, entry.Event.Number);
-            Assert.AreEqual("AbilityInterrupt", entry.Event.Effect.Name);
-            Assert.AreEqual("", entry.Event.Effect.Subtype);
-            Assert.AreEqual(836045448945482, entry.Event.Effect.Number);
-            Assert.AreEqual(0, entry.Event.Result.Amount);
-            Assert.AreEqual(false, entry.Event.Result.IsCritical);
-            Assert.AreEqual("", entry.Event.Result.Type);
-            Assert.AreEqual("", entry.Event.Result.Mitigation.Name);
-            Assert.AreEqual(0, entry.Event.Threat);
+            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 25, 55, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("", entry.target.name);
+            Assert.AreEqual("Seethe", entry.ability.name);
+            Assert.AreEqual(808226945761280, entry.ability.number);
+            Assert.AreEqual("Event", entry.@event.name);
+            Assert.AreEqual(836045448945472, entry.@event.number);
+            Assert.AreEqual("AbilityInterrupt", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(836045448945482, entry.@event.effect.number);
+            Assert.AreEqual(0, entry.@event.result.amount);
+            Assert.AreEqual(false, entry.@event.result.isCritical);
+            Assert.AreEqual("", entry.@event.result.type);
+            Assert.AreEqual("", entry.@event.result.mitigation.name);
+            Assert.AreEqual(0, entry.@event.threat);
         }
 
     }
@@ -263,26 +263,26 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 25, 53, DateTimeKind.Unspecified), entry.Timestamp);
-            Assert.AreEqual("Idrurrez", entry.Source.Name);
-            Assert.AreEqual(true, entry.Source.IsPlayer);
-            Assert.AreEqual("Khantni", entry.Target.Name);
-            Assert.AreEqual(true, entry.Target.IsPlayer);
-            Assert.AreEqual("Saber Throw", entry.Ability.Name);
-            Assert.AreEqual(812165430771712, entry.Ability.Number);
-            Assert.AreEqual("ApplyEffect", entry.Event.Name);
-            Assert.AreEqual(836045448945477, entry.Event.Number);
-            Assert.AreEqual("Damage", entry.Event.Effect.Name);
-            Assert.AreEqual("", entry.Event.Effect.Subtype);
-            Assert.AreEqual(836045448945501, entry.Event.Effect.Number);
-            Assert.AreEqual(1903, entry.Event.Result.Amount);
-            Assert.AreEqual(true, entry.Event.Result.IsCritical);
-            Assert.AreEqual("energy", entry.Event.Result.Type);
-            Assert.AreEqual(836045448940874, entry.Event.Result.Number);
-            Assert.AreEqual(1903, entry.Event.Result.Mitigation.Amount);
-            Assert.AreEqual("absorbed", entry.Event.Result.Mitigation.Type);
-            Assert.AreEqual(836045448945511, entry.Event.Result.Mitigation.Number);
-            Assert.AreEqual(1903, entry.Event.Threat);
+            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 25, 53, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Khantni", entry.target.name);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Saber Throw", entry.ability.name);
+            Assert.AreEqual(812165430771712, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Damage", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.@event.effect.number);
+            Assert.AreEqual(1903, entry.@event.result.amount);
+            Assert.AreEqual(true, entry.@event.result.isCritical);
+            Assert.AreEqual("energy", entry.@event.result.type);
+            Assert.AreEqual(836045448940874, entry.@event.result.number);
+            Assert.AreEqual(1903, entry.@event.result.mitigation.amount);
+            Assert.AreEqual("absorbed", entry.@event.result.mitigation.type);
+            Assert.AreEqual(836045448945511, entry.@event.result.mitigation.number);
+            Assert.AreEqual(1903, entry.@event.threat);
         }
     }
 
@@ -307,23 +307,23 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 23, 49, DateTimeKind.Unspecified), entry.Timestamp);
-            Assert.AreEqual("Idrurrez", entry.Source.Name);
-            Assert.AreEqual(true, entry.Source.IsPlayer);
-            Assert.AreEqual("Elite Tastybobble", entry.Target.Name);
-            Assert.AreEqual(846623953387520, entry.Target.Number);
-            Assert.AreEqual(false, entry.Target.IsPlayer);
-            Assert.AreEqual("Saber Throw", entry.Ability.Name);
-            Assert.AreEqual(812165430771712, entry.Ability.Number);
-            Assert.AreEqual("ApplyEffect", entry.Event.Name);
-            Assert.AreEqual(836045448945477, entry.Event.Number);
-            Assert.AreEqual("Damage", entry.Event.Effect.Name);
-            Assert.AreEqual("", entry.Event.Effect.Subtype);
-            Assert.AreEqual(836045448945501, entry.Event.Effect.Number);
-            Assert.AreEqual(1002, entry.Event.Result.Amount);
-            Assert.AreEqual("energy", entry.Event.Result.Type);
-            Assert.AreEqual(836045448940874, entry.Event.Result.Number);
-            Assert.AreEqual(1002, entry.Event.Threat);
+            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 23, 49, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Elite Tastybobble", entry.target.name);
+            Assert.AreEqual(846623953387520, entry.target.number);
+            Assert.AreEqual(false, entry.target.isPlayer);
+            Assert.AreEqual("Saber Throw", entry.ability.name);
+            Assert.AreEqual(812165430771712, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Damage", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.@event.effect.number);
+            Assert.AreEqual(1002, entry.@event.result.amount);
+            Assert.AreEqual("energy", entry.@event.result.type);
+            Assert.AreEqual(836045448940874, entry.@event.result.number);
+            Assert.AreEqual(1002, entry.@event.threat);
         }
     }
 
@@ -348,18 +348,18 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 23, 49, DateTimeKind.Unspecified), entry.Timestamp);
-            Assert.AreEqual("Idrurrez", entry.Source.Name);
-            Assert.AreEqual(true, entry.Source.IsPlayer);
-            Assert.AreEqual("Idrurrez", entry.Target.Name);
-            Assert.AreEqual(true, entry.Target.IsPlayer);
-            Assert.AreEqual("", entry.Ability.Name);
-            Assert.AreEqual("Restore", entry.Event.Name);
-            Assert.AreEqual(836045448945476, entry.Event.Number);
-            Assert.AreEqual("focus point", entry.Event.Effect.Name);
-            Assert.AreEqual("", entry.Event.Effect.Subtype);
-            Assert.AreEqual(836045448938496, entry.Event.Effect.Number);
-            Assert.AreEqual(3, entry.Event.Result.Amount);
+            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 23, 49, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Idrurrez", entry.target.name);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("", entry.ability.name);
+            Assert.AreEqual("Restore", entry.@event.name);
+            Assert.AreEqual(836045448945476, entry.@event.number);
+            Assert.AreEqual("focus point", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(836045448938496, entry.@event.effect.number);
+            Assert.AreEqual(3, entry.@event.result.amount);
         }
     }
 
@@ -384,19 +384,19 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 19, 14, DateTimeKind.Unspecified), entry.Timestamp);
-            Assert.AreEqual("Idrurrez", entry.Source.Name);
-            Assert.AreEqual(true, entry.Source.IsPlayer);
-            Assert.AreEqual("Idrurrez", entry.Target.Name);
-            Assert.AreEqual(true, entry.Target.IsPlayer);
-            Assert.AreEqual("Force Might", entry.Ability.Name);
-            Assert.AreEqual(1781496599805952, entry.Ability.Number);
-            Assert.AreEqual("ApplyEffect", entry.Event.Name);
-            Assert.AreEqual(836045448945477, entry.Event.Number);
-            Assert.AreEqual("Lucky Shots", entry.Event.Effect.Name);
-            Assert.AreEqual("", entry.Event.Effect.Subtype);
-            Assert.AreEqual(1781496599806223, entry.Event.Effect.Number);
-            Assert.AreEqual(0, entry.Event.Result.Amount);
+            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 19, 14, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Idrurrez", entry.target.name);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Force Might", entry.ability.name);
+            Assert.AreEqual(1781496599805952, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Lucky Shots", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(1781496599806223, entry.@event.effect.number);
+            Assert.AreEqual(0, entry.@event.result.amount);
         }
     }
 
@@ -421,7 +421,7 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(entry.Event.Result.Amount, 0);
+            Assert.AreEqual(entry.@event.result.amount, 0);
         }
 
         [TestMethod]
@@ -435,8 +435,8 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(entry.Ability.Name, "Force Clap");
-            Assert.AreEqual(entry.Ability.Number, 2848585519464448);
+            Assert.AreEqual(entry.ability.name, "Force Clap");
+            Assert.AreEqual(entry.ability.number, 2848585519464448);
         }
 
         [TestMethod]
@@ -450,11 +450,11 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(entry.Event.Name, "ApplyEffect");
-            Assert.AreEqual(entry.Event.Number, 836045448945477);
-            Assert.AreEqual(entry.Event.Effect.Name, "Stunned");
-            Assert.AreEqual(entry.Event.Effect.Subtype, "Physical");
-            Assert.AreEqual(entry.Event.Effect.Number, 2848585519464704);
+            Assert.AreEqual(entry.@event.name, "ApplyEffect");
+            Assert.AreEqual(entry.@event.number, 836045448945477);
+            Assert.AreEqual(entry.@event.effect.name, "Stunned");
+            Assert.AreEqual(entry.@event.effect.subtype, "Physical");
+            Assert.AreEqual(entry.@event.effect.number, 2848585519464704);
         }
 
         [TestMethod]
@@ -468,8 +468,8 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual("Khantni", entry.Target.Name);
-            Assert.AreEqual(true, entry.Target.IsPlayer);
+            Assert.AreEqual("Khantni", entry.target.name);
+            Assert.AreEqual(true, entry.target.isPlayer);
         }
 
         [TestMethod]
@@ -482,8 +482,8 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual("Idrurrez", entry.Source.Name);
-            Assert.AreEqual(true, entry.Source.IsPlayer);
+            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
         }
 
         [TestMethod]
@@ -509,7 +509,7 @@ namespace SWTOR.Parser.Tests
             // Assert
             var entry = list.First();
             var expected = new DateTime(2012, 3, 1, 14, 35, 20, DateTimeKind.Unspecified);
-            Assert.AreEqual(expected, entry.Timestamp);
+            Assert.AreEqual(expected, entry.timestamp);
         }
 
         [TestMethod]

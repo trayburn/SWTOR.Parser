@@ -5,6 +5,6 @@ namespace SWTOR.Parser
 {
     public class Actor : GameObject
     {
-        public bool IsPlayer { get; set; }
+        public bool isPlayer { get; set; }
     }
 }

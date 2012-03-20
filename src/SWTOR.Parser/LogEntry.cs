@@ -7,16 +7,16 @@ namespace SWTOR.Parser
     {
         public LogEntry()
         {
-            Source = new Actor();
-            Target = new Actor();
-            Event = new Event();
-            Ability = new Ability();
+            source = new Actor();
+            target = new Actor();
+            @event = new Event();
+            ability = new Ability();
         }
 
-        public DateTime Timestamp { get; set; }
-        public Actor Source { get; set; }
-        public Actor Target { get; set; }
-        public Event Event { get; set; }
-        public Ability Ability { get; set; }
+        public DateTime timestamp { get; set; }
+        public Actor source { get; set; }
+        public Actor target { get; set; }
+        public Event @event { get; set; }
+        public Ability ability { get; set; }
     }
 }

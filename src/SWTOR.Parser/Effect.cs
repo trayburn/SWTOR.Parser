@@ -7,8 +7,8 @@ namespace SWTOR.Parser
     {
         public Effect()
         {
-            Subtype = "";
+            subtype = "";
         }
-        public string Subtype { get; set; }
+        public string subtype { get; set; }
     }
 }

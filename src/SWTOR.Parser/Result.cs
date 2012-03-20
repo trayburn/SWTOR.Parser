@@ -7,11 +7,11 @@ namespace SWTOR.Parser
     {
         public Result()
         {
-            Type = "";
+            type = "";
         }
-        public int Amount { get; set; }
-        public string Type { get; set; }
-        public bool IsCritical { get; set; }
-        public Result Mitigation { get; set; }
+        public int amount { get; set; }
+        public string type { get; set; }
+        public bool isCritical { get; set; }
+        public Result mitigation { get; set; }
     }
 }

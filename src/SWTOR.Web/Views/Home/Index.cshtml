@@ -30,16 +30,16 @@
                     for (var item in data) {
                         var e = data[item];
                         newContent += '<tr>';
-                        newContent += '<td>' + e.Source.Name + '</td>';
-                        newContent += '<td>' + e.Target.Name + '</td>';
-                        newContent += '<td>' + e.Ability.Name + '</td>';
-                        newContent += '<td>' + e.Event.Name + '</td>';
-                        newContent += '<td>' + e.Event.Effect.Name + '</td>';
-                        newContent += '<td>' + e.Event.Result.Name + '</td>';
-                        newContent += '<td>' + e.Event.Result.Amount + '</td>';
-                        newContent += '<td>' + e.Event.Result.Type + '</td>';
-                        newContent += '<td>' + e.Event.Result.IsCritical + '</td>';
-                        newContent += '<td>' + e.Event.Threat + '</td>';
+                        newContent += '<td>' + e.source.name + '</td>';
+                        newContent += '<td>' + e.target.name + '</td>';
+                        newContent += '<td>' + e.ability.name + '</td>';
+                        newContent += '<td>' + e.event.name + '</td>';
+                        newContent += '<td>' + e.event.effect.name + '</td>';
+                        newContent += '<td>' + e.event.result.name + '</td>';
+                        newContent += '<td>' + e.event.result.amount + '</td>';
+                        newContent += '<td>' + e.event.result.type + '</td>';
+                        newContent += '<td>' + e.event.result.isCritical + '</td>';
+                        newContent += '<td>' + e.event.threat + '</td>';
                         newContent += '</tr>';
                     }
                     newContent += '</table>';

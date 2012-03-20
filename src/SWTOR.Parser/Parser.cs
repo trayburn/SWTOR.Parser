@@ -22,7 +22,7 @@ namespace SWTOR.Parser
                 try
                 {
                     var btwn = Between('[', ']', line);
-                    entry.Timestamp = Convert.ToDateTime(btwn.FoundValue);
+                    entry.timestamp = Convert.ToDateTime(btwn.FoundValue);
 
                     rest = ParseSourceAndTarget(entry, btwn.Rest);
                     rest = ParseAbility(entry, rest);
@@ -48,8 +48,8 @@ namespace SWTOR.Parser
             // <1002>
             var btwn = Between('<', '>', line);
             if (string.IsNullOrWhiteSpace(btwn.FoundValue) == false)
-                entry.Event.Threat = Convert.ToInt32(btwn.FoundValue);
-            else entry.Event.Threat = 0;
+                entry.@event.threat = Convert.ToInt32(btwn.FoundValue);
+            else entry.@event.threat = 0;
             return btwn.Rest;
         }
 
@@ -68,8 +68,8 @@ namespace SWTOR.Parser
                     btwn.FoundValue.EndsWith("-"))
                 {
                     // Handle the (3) case
-                    entry.Event.Result.IsCritical = btwn.FoundValue.Contains("*");
-                    entry.Event.Result.Amount = Convert.ToInt32(btwn.FoundValue.Replace("*","").Replace("-",""));
+                    entry.@event.result.isCritical = btwn.FoundValue.Contains("*");
+                    entry.@event.result.amount = Convert.ToInt32(btwn.FoundValue.Replace("*","").Replace("-",""));
                 }
                 else
                 {
@@ -79,15 +79,15 @@ namespace SWTOR.Parser
                         // handle (1903* energy {836045448940874} (1903 absorbed {836045448945511}))
                         // splits to "1903* energy {836045448940874} " 
                         //       and "1903 absorbed {836045448945511}"
-                        ParseResultPart(entry.Event.Result, splitMitigation[0]);
-                        entry.Event.Result.Mitigation = new Result();
-                        ParseResultPart(entry.Event.Result.Mitigation, splitMitigation[1]);
+                        ParseResultPart(entry.@event.result, splitMitigation[0]);
+                        entry.@event.result.mitigation = new Result();
+                        ParseResultPart(entry.@event.result.mitigation, splitMitigation[1]);
                     }
                     else
                     {
                         // Handle the (1002 energy {836045448940874}) case
                         // also (131* elemental {836045448940875}) case, * is a critical
-                        ParseResultPart(entry.Event.Result, btwn.FoundValue);
+                        ParseResultPart(entry.@event.result, btwn.FoundValue);
                     }
                 }
             }
@@ -100,11 +100,11 @@ namespace SWTOR.Parser
             //    1002 energy {836045448940874}
             // or 131* elemental {836045448940875}
             var btwn = Between('{', '}', line);
-            entry.Number = Convert.ToInt64(btwn.FoundValue);
+            entry.number = Convert.ToInt64(btwn.FoundValue);
             var splitBefore = btwn.BeforeFound.Split(new[] { ' ' }, 2);
-            entry.IsCritical = splitBefore[0].Contains("*");
-            entry.Amount = Convert.ToInt32(splitBefore[0].Replace("*", ""));
-            entry.Type = splitBefore[1].Trim();
+            entry.isCritical = splitBefore[0].Contains("*");
+            entry.amount = Convert.ToInt32(splitBefore[0].Replace("*", ""));
+            entry.type = splitBefore[1].Trim();
         }
 
         private string ParseEvent(LogEntry entry, string line)
@@ -116,22 +116,22 @@ namespace SWTOR.Parser
             var rest = btwn.Rest;
 
             btwn = Between('{', '}', splitFound[0]);
-            entry.Event.Name = btwn.BeforeFound.Trim();
-            entry.Event.Number = Convert.ToInt64(btwn.FoundValue);
+            entry.@event.name = btwn.BeforeFound.Trim();
+            entry.@event.number = Convert.ToInt64(btwn.FoundValue);
 
             btwn = Between('{', '}', splitFound[1]);
-            entry.Event.Effect.Number = Convert.ToInt64(btwn.FoundValue);
+            entry.@event.effect.number = Convert.ToInt64(btwn.FoundValue);
             btwn = Between('(', ')', btwn.BeforeFound);
             if (btwn.FoundValue != null)
             {
                 // Handle subtype if present
-                entry.Event.Effect.Name = btwn.BeforeFound.Trim();
-                entry.Event.Effect.Subtype = btwn.FoundValue.Trim();
+                entry.@event.effect.name = btwn.BeforeFound.Trim();
+                entry.@event.effect.subtype = btwn.FoundValue.Trim();
             }
             else
             {
-                entry.Event.Effect.Name = btwn.Original.Trim();
-                entry.Event.Effect.Subtype = string.Empty;
+                entry.@event.effect.name = btwn.Original.Trim();
+                entry.@event.effect.subtype = string.Empty;
             }
 
             return rest;
@@ -145,10 +145,10 @@ namespace SWTOR.Parser
             if (string.IsNullOrWhiteSpace(btwn.FoundValue) == false)
             {
                 btwn = Between('{', '}', btwn.FoundValue);
-                entry.Ability.Name = btwn.BeforeFound.Trim();
-                entry.Ability.Number = Convert.ToInt64(btwn.FoundValue);
+                entry.ability.name = btwn.BeforeFound.Trim();
+                entry.ability.number = Convert.ToInt64(btwn.FoundValue);
             }
-            else entry.Ability = new Ability();
+            else entry.ability = new Ability();
             return rest;
         }
 
@@ -160,18 +160,18 @@ namespace SWTOR.Parser
             {
                 if (btwn.FoundValue.StartsWith("@"))
                 {
-                    entry.Source.IsPlayer = true;
-                    entry.Source.Name = btwn.FoundValue.Replace("@", "");
+                    entry.source.isPlayer = true;
+                    entry.source.name = btwn.FoundValue.Replace("@", "");
                 }
                 else
                 {
                     btwn = Between('{', '}', btwn.FoundValue);
-                    entry.Source.Name = btwn.BeforeFound.Trim();
-                    entry.Source.Number = Convert.ToInt64(btwn.FoundValue);
-                    entry.Source.IsPlayer = false;
+                    entry.source.name = btwn.BeforeFound.Trim();
+                    entry.source.number = Convert.ToInt64(btwn.FoundValue);
+                    entry.source.isPlayer = false;
                 }
             }
-            else entry.Source = new Actor();
+            else entry.source = new Actor();
 
             btwn = Between('[', ']', rest);
             rest = btwn.Rest;
@@ -179,18 +179,18 @@ namespace SWTOR.Parser
             {
                 if (btwn.FoundValue.StartsWith("@"))
                 {
-                    entry.Target.IsPlayer = true;
-                    entry.Target.Name = btwn.FoundValue.Replace("@", "");
+                    entry.target.isPlayer = true;
+                    entry.target.name = btwn.FoundValue.Replace("@", "");
                 }
                 else
                 {
                     btwn = Between('{', '}', btwn.FoundValue);
-                    entry.Target.Name = btwn.BeforeFound.Trim();
-                    entry.Target.Number = Convert.ToInt64(btwn.FoundValue);
-                    entry.Target.IsPlayer = false;
+                    entry.target.name = btwn.BeforeFound.Trim();
+                    entry.target.number = Convert.ToInt64(btwn.FoundValue);
+                    entry.target.isPlayer = false;
                 }
             }
-            else entry.Target = new Actor();
+            else entry.target = new Actor();
 
             return rest;
         }

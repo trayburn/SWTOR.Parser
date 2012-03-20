@@ -7,9 +7,9 @@ namespace SWTOR.Parser
     {
         public GameObject()
         {
-            Name = "";
+            name = "";
         }
-        public string Name { get; set; }
-        public Int64 Number { get; set; }
+        public string name { get; set; }
+        public Int64 number { get; set; }
     }
 }

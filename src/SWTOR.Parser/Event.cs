@@ -7,13 +7,13 @@ namespace SWTOR.Parser
     {
         public Event()
         {
-            Effect = new Effect();
-            Result = new Result();
-            Result.Mitigation = new Result();
+            effect = new Effect();
+            result = new Result();
+            result.mitigation = new Result();
         }
 
-        public Effect Effect { get; set; }
-        public Result Result { get; set; }
-        public int Threat { get; set; }
+        public Effect effect { get; set; }
+        public Result result { get; set; }
+        public int threat { get; set; }
     }
 }
