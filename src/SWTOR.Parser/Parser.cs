@@ -60,12 +60,6 @@ namespace SWTOR.Parser
             // (1002 energy {836045448940874})
             // (131* elemental {836045448940875}) 
             // (1903* energy {836045448940874} (1903 absorbed {836045448945511}))
-            entry.Event.Result.Amount = 0;
-            entry.Event.Result.Type = null;
-            entry.Event.Result.Number = 0;
-            entry.Event.Result.Mitigation = null;
-            entry.Event.Result.IsCritical = false;
-
             var btwn = Between('(', ')', line);
             var rest = btwn.Rest;
             if (string.IsNullOrWhiteSpace(btwn.FoundValue) == false)
@@ -154,7 +148,7 @@ namespace SWTOR.Parser
                 entry.Ability.Name = btwn.BeforeFound.Trim();
                 entry.Ability.Number = Convert.ToInt64(btwn.FoundValue);
             }
-            else entry.Ability = null;
+            else entry.Ability = new Ability();
             return rest;
         }
 
@@ -196,7 +190,7 @@ namespace SWTOR.Parser
                     entry.Target.IsPlayer = false;
                 }
             }
-            else entry.Target = null;
+            else entry.Target = new Actor();
 
             return rest;
         }

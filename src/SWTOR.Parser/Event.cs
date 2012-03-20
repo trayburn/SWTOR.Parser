@@ -9,6 +9,7 @@ namespace SWTOR.Parser
         {
             Effect = new Effect();
             Result = new Result();
+            Result.Mitigation = new Result();
         }
 
         public Effect Effect { get; set; }

@@ -154,8 +154,8 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(836045448945501, entry.Event.Effect.Number);
             Assert.AreEqual(0, entry.Event.Result.Amount);
             Assert.AreEqual(false, entry.Event.Result.IsCritical);
-            Assert.AreEqual(null, entry.Event.Result.Type);
-            Assert.AreEqual(null, entry.Event.Result.Mitigation);
+            Assert.AreEqual("", entry.Event.Result.Type);
+            Assert.AreEqual("", entry.Event.Result.Mitigation.Name);
             Assert.AreEqual(209, entry.Event.Threat);
         }
     }
@@ -195,8 +195,8 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(836045448945500, entry.Event.Effect.Number);
             Assert.AreEqual(1485, entry.Event.Result.Amount);
             Assert.AreEqual(true, entry.Event.Result.IsCritical);
-            Assert.AreEqual(null, entry.Event.Result.Type);
-            Assert.AreEqual(null, entry.Event.Result.Mitigation);
+            Assert.AreEqual("", entry.Event.Result.Type);
+            Assert.AreEqual("", entry.Event.Result.Mitigation.Name);
             Assert.AreEqual(0, entry.Event.Threat);
         }
     }
@@ -225,7 +225,7 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(new DateTime(2012, 3, 1, 14, 25, 55, DateTimeKind.Unspecified), entry.Timestamp);
             Assert.AreEqual("Idrurrez", entry.Source.Name);
             Assert.AreEqual(true, entry.Source.IsPlayer);
-            Assert.AreEqual(null, entry.Target);
+            Assert.AreEqual("", entry.Target.Name);
             Assert.AreEqual("Seethe", entry.Ability.Name);
             Assert.AreEqual(808226945761280, entry.Ability.Number);
             Assert.AreEqual("Event", entry.Event.Name);
@@ -235,8 +235,8 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(836045448945482, entry.Event.Effect.Number);
             Assert.AreEqual(0, entry.Event.Result.Amount);
             Assert.AreEqual(false, entry.Event.Result.IsCritical);
-            Assert.AreEqual(null, entry.Event.Result.Type);
-            Assert.AreEqual(null, entry.Event.Result.Mitigation);
+            Assert.AreEqual("", entry.Event.Result.Type);
+            Assert.AreEqual("", entry.Event.Result.Mitigation.Name);
             Assert.AreEqual(0, entry.Event.Threat);
         }
 
@@ -353,7 +353,7 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(true, entry.Source.IsPlayer);
             Assert.AreEqual("Idrurrez", entry.Target.Name);
             Assert.AreEqual(true, entry.Target.IsPlayer);
-            Assert.AreEqual(null, entry.Ability);
+            Assert.AreEqual("", entry.Ability.Name);
             Assert.AreEqual("Restore", entry.Event.Name);
             Assert.AreEqual(836045448945476, entry.Event.Number);
             Assert.AreEqual("focus point", entry.Event.Effect.Name);

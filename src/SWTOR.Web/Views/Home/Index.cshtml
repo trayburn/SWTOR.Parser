@@ -1,7 +1,64 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
+<h2>SWTOR Combat Log Parser</h2>
 
-<h2>Index</h2>
+<p>This website will accept the text of a combat log and then parse the log into JSON objects. 
+ The API can be called from any other website, simply "View Source" on this page for an example of how it can be done.
+ the table being output below is not at all inclusive of all parsed data, it is merely meant to prove that the parsing works.</p>
 
-The very beginning of the SWTOR Parser website.
+<p>If you do not have a log of your own, simply click on the sample data button and we'll load a small sample log for you.
+</p>
+
+<form id="combatForm" method="post" action="/API/ParseText">
+    <textarea id="combatLog" name="combatLog" style="width:100%;height:400px;"></textarea><br />
+    <input type="submit" value="Parse Log" />
+    <input type="button" onclick="loadData();" value="Load Sample Data" />
+</form>
+<br />
+<div id="output"></div>
+
+<script>
+    $(document).ready(
+        function () {
+            $("#combatForm").ajaxForm({
+                dataType: 'json',
+                success: function (data) {
+                    var newContent = '<table border=1>';
+                    newContent += '<tr><th>Source</th><th>Target</th><th>Ability</th><th>Event</th><th>Effect</th><th>Result</th>';
+                    newContent += '<th>Amount</th><th>Type</th><th>IsCritical</th><th>Threat</th></tr>';
+                    for (var item in data) {
+                        var e = data[item];
+                        newContent += '<tr>';
+                        newContent += '<td>' + e.Source.Name + '</td>';
+                        newContent += '<td>' + e.Target.Name + '</td>';
+                        newContent += '<td>' + e.Ability.Name + '</td>';
+                        newContent += '<td>' + e.Event.Name + '</td>';
+                        newContent += '<td>' + e.Event.Effect.Name + '</td>';
+                        newContent += '<td>' + e.Event.Result.Name + '</td>';
+                        newContent += '<td>' + e.Event.Result.Amount + '</td>';
+                        newContent += '<td>' + e.Event.Result.Type + '</td>';
+                        newContent += '<td>' + e.Event.Result.IsCritical + '</td>';
+                        newContent += '<td>' + e.Event.Threat + '</td>';
+                        newContent += '</tr>';
+                    }
+                    newContent += '</table>';
+                    $('#output').html(newContent);
+                }
+            });
+        }
+    );
+</script>
+<script>
+    function loadData() {
+        var content = '';
+        content += '[03/01/2012 15:00:41] [@@Khantni] [@@Twos] [Sundering Assault {807806038966272}] [RemoveEffect {836045448945478}: Armor Reduced {807806038966564}] ()\r\n';
+        content += '[03/01/2012 15:00:56] [@@Khantni] [@@Khantni] [Trauma (PVP) {632923560607744}] [RemoveEffect {836045448945478}: Trauma (PVP) {632923560607744}] ()\r\n';
+        content += '[03/01/2012 15:49:44] [@@Khantni] [@@Khantni] [Unnatural Might {1781509484707840}] [RemoveEffect {836045448945478}: Unnatural Might {1781509484707840}] ()\r\n';
+        content += '[03/01/2012 15:49:44] [@@Khantni] [@@Khantni] [Unnatural Might {1781509484707840}] [RemoveEffect {836045448945478}: Coordination {1781509484708107}] ()\r\n';
+        content += '[03/01/2012 15:49:44] [@@Khantni] [@@Khantni] [Unnatural Might {1781509484707840}] [RemoveEffect {836045448945478}: Hunters Boon {1781509484708111}] ()\r\n';
+        content += '[03/01/2012 15:49:44] [@@Khantni] [@@Khantni] [Unnatural Might {1781509484707840}] [RemoveEffect {836045448945478}: Mark of Power {1781509484708115}] ()\r\n';
+        $('#combatLog').val(content);
+    }
+</script>
+
