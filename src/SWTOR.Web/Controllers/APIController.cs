@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using SWTOR.Parser;
 using System.IO;
+using System.Web.Script.Serialization;
 
 namespace SWTOR.Web.Controllers
 {
@@ -33,7 +34,10 @@ namespace SWTOR.Web.Controllers
             var parser = new SWTOR.Parser.Parser();
             returnData = parser.Parse(new StringReader(combatLog));
 
-            return Json(returnData);
+            var ser = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+            return new ContentResult { Content = ser.Serialize(returnData), ContentType = "application/json" };
         }
+
+
     }
 }

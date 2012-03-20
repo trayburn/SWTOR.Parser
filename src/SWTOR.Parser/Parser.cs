@@ -171,7 +171,7 @@ namespace SWTOR.Parser
                     entry.Source.IsPlayer = false;
                 }
             }
-            else entry.Source = null;
+            else entry.Source = new Actor();
 
             btwn = Between('[', ']', rest);
             rest = btwn.Rest;
