@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analyzer.cs" />
+    <Compile Include="CombatParser.cs" />
     <Compile Include="Domain\Ability.cs" />
     <Compile Include="Domain\Actor.cs" />
     <Compile Include="AssemblyInfo.cs" />
