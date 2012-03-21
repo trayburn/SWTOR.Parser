@@ -9,5 +9,6 @@ namespace SWTOR.Parser
         public int interval { get; set; }
         public string character { get; set; }
         public int damage { get; set; }
+        public double average { get; set; }
     }
 }
