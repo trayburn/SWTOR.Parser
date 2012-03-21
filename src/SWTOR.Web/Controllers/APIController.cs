@@ -44,13 +44,13 @@ namespace SWTOR.Web.Controllers
             object returnData = null;
 
             var parser = new SWTOR.Parser.Parser();
-            if (Request.Files.Count > 0)
+            if (Request.ContentLength > 0)
             {
-                Stream stream = Request.Files["combatLog"].InputStream;
+                Stream stream = Request.InputStream;
                 returnData = parser.Parse(new StreamReader(stream));
             }
-
-            return Json(returnData);
+            var ser = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };
+            return new ContentResult { Content = ser.Serialize(returnData), ContentType = "application/json" };
         }
 
         [HttpPost]

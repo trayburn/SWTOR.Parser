@@ -16,6 +16,11 @@ namespace SWTOR.Web.Controllers
             return View();
         }
 
+        public ActionResult TestIndex()
+        {
+            return View();
+        }
+
         public ActionResult DPS()
         {
             return View();
