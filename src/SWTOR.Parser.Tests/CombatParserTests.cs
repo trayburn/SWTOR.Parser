@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SWTOR.Parser.Tests
+namespace SWTOR.Parser.Tests.CombatParserTests
 {
     [TestClass]
     public class OneCombatIntegration_CombatParserTests : BaseCombatParserIntegrationTest
@@ -12,6 +12,46 @@ namespace SWTOR.Parser.Tests
         public override string FileName
         {
             get { return "oneCombat.txt"; }
+        }
+
+        [TestMethod]
+        public void For_Combat_One_Ensure_AverageDPS()
+        {
+            // Arrange
+            
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(1040.5, res.Combats[0].AverageDamagePerSecond);
+        }
+
+
+        [TestMethod]
+        public void For_Combat_One_Ensure_AverageHPS()
+        {
+            // Arrange
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(528.35, res.Combats[0].AverageHealingPerSecond);
+        }
+
+        [TestMethod]
+        public void For_Combat_One_Ensure_Interval()
+        {
+            // Arrange
+            
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(40, res.Combats[0].Interval);
         }
 
         [TestMethod]
@@ -84,6 +124,92 @@ namespace SWTOR.Parser.Tests
             h = new LogHelper(log);
             player = new Actor { name = "Gisben", isPlayer = true };
             mob = new Actor { name = "Soa", number = 836045448947788 };
+        }
+
+
+        [TestMethod]
+        public void Given_One_Combat_When_Parse_Then_Characters_Player_AsTarget_Should_Be_Populated()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Damage(mob, player, "Headbutt", 250, "energy").Tick()
+                .Damage(mob, player, "Headbutt", 250, "energy").Tick()
+                .ExitCombat(player);
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(1, res.Combats.Count);
+            Assert.AreEqual(2, res.Combats[0].Characters.Count);
+            var playerMetrics = res.Combats[0].Characters[player.name];
+            Assert.AreEqual(3, playerMetrics.AsTarget.Interval);
+            Assert.AreEqual(500, playerMetrics.AsTarget.TotalDamage);
+            Assert.AreEqual(0, playerMetrics.AsTarget.TotalHealing);
+            Assert.AreEqual((double)500 / 3, playerMetrics.AsTarget.AverageDamagePerSecond);
+            Assert.AreEqual(0, playerMetrics.AsTarget.AverageHealingPerSecond);
+        }
+
+        [TestMethod]
+        public void Given_One_Combat_When_Parse_Then_Characters_Player_AsSource_Should_Be_Populated()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Damage(player, mob, "Headbutt", 250, "energy").Tick()
+                .Damage(player, mob, "Headbutt", 250, "energy").Tick()
+                .ExitCombat(player);
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(1, res.Combats.Count);
+            Assert.AreEqual(2, res.Combats[0].Characters.Count);
+            var playerMetrics = res.Combats[0].Characters[player.name];
+            Assert.AreEqual(3, playerMetrics.AsSource.Interval);
+            Assert.AreEqual(500, playerMetrics.AsSource.TotalDamage);
+            Assert.AreEqual(0, playerMetrics.AsSource.TotalHealing);
+            Assert.AreEqual((double)500 / 3, playerMetrics.AsSource.AverageDamagePerSecond);
+            Assert.AreEqual(0, playerMetrics.AsSource.AverageHealingPerSecond);
+        }
+
+        [TestMethod]
+        public void Given_One_Combat_When_Parse_Then_Combats_Characters_Should_Be_2()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Damage(player, mob, "Headbutt", 250, "energy").Tick()
+                .Damage(player, mob, "Headbutt", 250, "energy").Tick()
+                .ExitCombat(player);
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(1, res.Combats.Count);
+            Assert.AreEqual(2, res.Combats[0].Characters.Count);
+            Assert.IsTrue(res.Combats[0].Characters.Keys.Contains(player.name));
+            Assert.IsTrue(res.Combats[0].Characters.Keys.Contains(mob.name));
+        }
+
+        [TestMethod]
+        public void Given_One_Combat_Without_An_Exit_When_Parse_Then_Combats_Should_Be_1()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Damage(player, mob, "Headbutt", 250, "energy").Tick()
+                .Damage(player, mob, "Headbutt", 250, "energy").Tick();
+ 
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(1, res.Combats.Count);
+            Assert.AreEqual(3, res.Combats[0].Log.Count);
         }
 
         [TestMethod]

@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 
-namespace SWTOR.Parser.Tests
+namespace SWTOR.Parser.Tests.ParserTests
 {
     [TestClass]
     public class PTRXXLargeLog_ParserTests : BaseFileParserTest
