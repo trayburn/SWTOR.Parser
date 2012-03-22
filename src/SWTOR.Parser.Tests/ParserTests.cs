@@ -369,6 +369,95 @@ namespace SWTOR.Parser.Tests
     }
 
     [TestClass]
+    public class OneRowWithResultDefenseAndMitigation_ParserTests : BaseParserTest
+    {
+        public override void BuildTestString(StringBuilder bldr)
+        {
+            bldr.AppendLine("[03/17/2012 19:49:20] [@Psyfe] [@Argorash] " + 
+                "[Series of Shots {2299572734918656}] " + 
+                "[ApplyEffect {836045448945477}: Damage {836045448945501}] " + 
+                "(234 energy {836045448940874} -glance {836045448945509} (234 absorbed {836045448945511})) " + 
+                "<234>");
+        }
+
+        [TestMethod]
+        public void Parse_Should_Return_Entry_Correctly()
+        {
+            // Arrange
+
+
+            // Act
+            var list = target.Parse(rdr);
+
+            // Assert
+            var entry = list.First();
+            Assert.AreEqual(new DateTime(2012, 3, 17, 19, 49, 20, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Psyfe", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Argorash", entry.target.name);
+            Assert.AreEqual(0, entry.target.number);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Series of Shots", entry.ability.name);
+            Assert.AreEqual(2299572734918656, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Damage", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.effect.number);
+            Assert.AreEqual(234, entry.result.amount);
+            Assert.AreEqual("energy", entry.result.name);
+            Assert.AreEqual(836045448940874, entry.result.number);
+            Assert.AreEqual("glance", entry.defense.name);
+            Assert.AreEqual(836045448945509, entry.defense.number);
+            Assert.AreEqual(234, entry.mitigation.amount);
+            Assert.AreEqual("absorbed", entry.mitigation.name);
+            Assert.AreEqual(836045448945511, entry.mitigation.number);
+            Assert.AreEqual(234, entry.threat);
+        }
+    }
+
+    [TestClass]
+    public class OneRowWithCompanionData_ParserTests : BaseParserTest
+    {
+        public override void BuildTestString(StringBuilder bldr)
+        {
+            bldr.AppendLine("[03/17/2012 19:45:10] [@Argorash] [@Argorash:Lieutenant Pierce {493302763749376}] " + 
+                "[Heroic Moment: Call on the Force {1412666283261952}] " + 
+                "[ApplyEffect {836045448945477}: Heal {836045448945500}] (378)");
+        }
+
+        [TestMethod]
+        public void Parse_Should_Return_Entry_Correctly()
+        {
+            // Arrange
+
+
+            // Act
+            var list = target.Parse(rdr);
+
+            // Assert
+            var entry = list.First();
+            Assert.AreEqual(new DateTime(2012, 3, 17, 19, 45, 10, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Argorash", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Argorash:Lieutenant Pierce", entry.target.name);
+            Assert.AreEqual(493302763749376, entry.target.number);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Heroic Moment: Call on the Force", entry.ability.name);
+            Assert.AreEqual(1412666283261952, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Heal", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448945500, entry.effect.number);
+            Assert.AreEqual(378, entry.result.amount);
+            Assert.AreEqual("", entry.result.name);
+            Assert.AreEqual(0, entry.result.number);
+            Assert.AreEqual(0, entry.threat);
+        }
+    }
+
+    [TestClass]
     public class OneRowAmountTypeAndNumberAndMore_ParserTests : BaseParserTest
     {
         public override void BuildTestString(StringBuilder bldr)
