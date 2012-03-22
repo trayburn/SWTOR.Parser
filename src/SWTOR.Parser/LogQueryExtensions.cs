@@ -9,12 +9,12 @@ namespace SWTOR.Parser
     {
         public static IEnumerable<string> DistinctSources(this IEnumerable<LogEntry> log)
         {
-            return log.Select(m => m.source.name).Distinct();
+            return log.Where(m => m.source.name != "").Select(m => m.source.name).Distinct();
         }
 
         public static IEnumerable<string> DistinctTargets(this IEnumerable<LogEntry> log)
         {
-            return log.Select(m => m.target.name).Distinct();
+            return log.Where(m => m.target.name != "").Select(m => m.target.name).Distinct();
         }
 
         public static IEnumerable<LogEntry> WithSource(this IEnumerable<LogEntry> log, string source)

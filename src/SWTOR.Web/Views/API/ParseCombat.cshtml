@@ -1,0 +1,102 @@
+﻿@model SWTOR.Parser.Domain.CombatLog
+@{
+    ViewBag.Title = "Combat Report";
+        
+    Func<SWTOR.Parser.Domain.ILogMetrics, object> report =
+    @<div class="report">
+        <div class="display-group">
+            <div class="display-label">
+                Total Damage:</div>
+            <div class="display-value">@item.TotalDamage</div>
+        </div>
+        <div class="display-group">
+            <div class="display-label">
+                Total Healing:</div>
+            <div class="display-value">@item.TotalHealing</div>
+        </div>
+        <div class="display-group">
+            <div class="display-label">
+                # of Deflects:</div>
+            <div class="display-value">@item.CountOfDeflect</div>
+        </div>
+        <div class="display-group">
+            <div class="display-label">
+                # of Parries:</div>
+            <div class="display-value">@item.CountOfParry</div>
+        </div>
+    </div>;
+
+    Func<SWTOR.Parser.Domain.ICombatMetrics, object> combatReport =
+    @<div class="combat-report">
+        <div class="display-group">
+            <div class="display-label">
+                Total Time (sec):</div>
+            <div class="display-value">@item.Interval</div>
+        </div>
+        <div class="display-group">
+            <div class="display-label">
+                Average DPS:</div>
+            <div class="display-value">@item.AverageDamagePerSecond</div>
+        </div>
+        <div class="display-group">
+            <div class="display-label">
+                Average HPS:</div>
+            <div class="display-value">@item.AverageHealingPerSecond</div>
+        </div>
+        @report(item)
+    </div>;
+
+}
+<h2>
+    Combat Report</h2>
+@report(Model)
+<div id="combat-tabs">
+    <ul>
+        @foreach (var combat in Model.Combats)
+        {
+            var combatIndex = Model.Combats.IndexOf(combat) + 1;
+            <li><a href="#combat-@combatIndex">Combat @combatIndex</a></li>
+        }
+    </ul>
+    @foreach (var combat in Model.Combats)
+    {
+        var combatIndex = Model.Combats.IndexOf(combat) + 1;
+        <div id="combat-@combatIndex">
+            @combatReport(combat)
+            <div id="character-tabs-@combatIndex">
+                <ul>
+                    @foreach (var charKey in combat.Characters.Keys)
+                    {
+                        var safeKey = charKey.Replace(":", "-").Replace(" ", "");
+                        <li><a href="#character-@combatIndex-@safeKey">@charKey</a></li>
+                    }
+                </ul>
+                @foreach (var charKey in combat.Characters.Keys)
+                {
+                    var safeKey = charKey.Replace(":", "-").Replace(" ", "");
+                    var charData = combat.Characters[charKey];
+                    <div id="character-@combatIndex-@safeKey">
+                        <div id="st-tabs-@combatIndex-@safeKey">
+                            <ul>
+                                <li><a href="#source-@combatIndex-@safeKey">As Source</a></li>
+                                <li><a href="#target-@combatIndex-@safeKey">As Target</a></li>
+                            </ul>
+                            <div id="source-@combatIndex-@safeKey">@combatReport(charData.AsSource)</div>
+                            <div id="target-@combatIndex-@safeKey">@combatReport(charData.AsTarget)</div>
+                        </div>
+                        <script>
+                            $(function () { $("#st-tabs-@combatIndex-@safeKey").tabs(); });
+                        </script>
+                    </div>
+                }
+            </div>
+            <script>
+                $(function () { $("#character-tabs-@combatIndex").tabs(); });
+            </script>
+        </div>
+
+    }
+</div>
+<script>
+    $(function () { $('#combat-tabs').tabs(); });
+</script>

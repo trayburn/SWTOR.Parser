@@ -65,6 +65,16 @@ namespace SWTOR.Web.Controllers
             return new ContentResult { Content = ser.Serialize(returnData), ContentType = "application/json" };
         }
 
+        [HttpPost]
+        public ActionResult ParseCombat(string combatLog)
+        {
+            var logParser = new SWTOR.Parser.Parser();
+            var combatParser = new SWTOR.Parser.CombatParser();
 
+            var log = logParser.Parse(new StringReader(combatLog));
+            var model = combatParser.Parse(log);
+
+            return View(model);
+        }
     }
 }

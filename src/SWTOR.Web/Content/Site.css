@@ -1,47 +1,79 @@
 body
 {
     font-size: .85em;
-    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    font-family: "Trebuchet MS" , Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
 }
 
-header,
-footer,
-nav,
-section {
+header, footer, nav, section
+{
     display: block;
+}
+
+/* Combat Report Styling 
+-----------------------------------------------------------*/
+.report 
+{
+    padding: 10px 0px 10px 0px;
+}
+.combat-report 
+{
+    padding: 10px 10px 10px 10px;
+}
+.display-group
+{
+    display: inline;
+    width: 300px;
+    white-space: nowrap;
+}
+.display-label
+{
+    text-align: right;
+    font-weight: bold;
+    width:200px;
+}
+.display-value
+{
+    text-align: left;
+    border-right: 1px solid black;
+    width:100px;
+}
+.display-label, .display-value
+{
+    font-size: large;
+    display: inline-block;
 }
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
 
-fieldset 
+fieldset
 {
-    border:1px solid #ddd;
-    padding:0 1.4em 1.4em 1.4em;
-    margin:0 0 1.5em 0;
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
 }
 
-legend 
+legend
 {
-    font-size:1.2em;
+    font-size: 1.2em;
     font-weight: bold;
 }
 
-textarea 
+textarea
 {
     min-height: 75px;
 }
 
-.editor-label 
+.editor-label
 {
     margin: 1em 0 0 0;
 }
 
-.editor-field 
+.editor-field
 {
-    margin:0.5em 0 0 0;
+    margin: 0.5em 0 0 0;
 }
 
 
