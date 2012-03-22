@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using SWTOR.Parser.Domain;
 
 namespace SWTOR.Parser
 {
@@ -80,129 +81,5 @@ namespace SWTOR.Parser
                 cLog.Combats.Add(currentCombat);
             return cLog;
         }
-    }
-
-    public static class LogQueryExtensions
-    {
-        public static IEnumerable<string> DistinctSources(this IEnumerable<LogEntry> log)
-        {
-            return log.Select(m => m.source.name).Distinct();
-        }
-
-        public static IEnumerable<string> DistinctTargets(this IEnumerable<LogEntry> log)
-        {
-            return log.Select(m => m.target.name).Distinct();
-        }
-
-        public static IEnumerable<LogEntry> WithSource(this IEnumerable<LogEntry> log, string source)
-        {
-            return log.Where(m => m.source.name == source);
-        }
-
-        public static IEnumerable<LogEntry> WithTarget(this IEnumerable<LogEntry> log, string target)
-        {
-            return log.Where(m => m.target.name == target);
-        }
-
-        public static IEnumerable<LogEntry> DamageEffects(this IEnumerable<LogEntry> log)
-        {
-            return log.Where(m => m.@event.name == "ApplyEffect" && m.effect.name == "Damage");
-        }
-
-        public static IEnumerable<LogEntry> HealingEffects(this IEnumerable<LogEntry> log)
-        {
-            return log.Where(m => m.@event.name == "ApplyEffect" && m.effect.name == "Heal");
-        }
-
-        public static IEnumerable<LogEntry> ParryEffects(this IEnumerable<LogEntry> log)
-        {
-            return log.DamageEffects().Where(m => m.result.name == "-parry");
-        }
-
-        public static IEnumerable<LogEntry> DeflectEffects(this IEnumerable<LogEntry> log)
-        {
-            return log.DamageEffects().Where(m => m.result.name == "-deflect");
-        }
-
-        public static DateTime StartTime(this IEnumerable<LogEntry> log)
-        {
-            return log.Min(m => m.timestamp);
-        }
-
-        public static DateTime EndTime(this IEnumerable<LogEntry> log)
-        {
-            return log.Max(m => m.timestamp);
-        }
-    }
-
-    public class CombatLog : ILogMetrics
-    {
-        public CombatLog()
-        {
-            Combats = new List<CombatData>();
-        }
-
-        public List<CombatData> Combats { get; private set; }
-
-        public int TotalDamage { get; set; }
-        public int TotalHealing { get; set; }
-        public int CountOfParry { get; set; }
-        public int CountOfDeflect { get; set; }
-    }
-
-    public class CombatData : CombatMetrics
-    {
-        public CombatData()
-        {
-            Characters = new Dictionary<string, CharacterData>();
-        }
-
-        public Dictionary<string, CharacterData> Characters { get; private set; }
-    }
-
-    public class CombatMetrics : ICombatMetrics
-    {
-        public CombatMetrics()
-        {
-            Log = new List<LogEntry>();
-        }
-
-        public List<LogEntry> Log { get; private set; }
-
-        public int TotalDamage { get; set; }
-        public int TotalHealing { get; set; }
-        public int CountOfParry { get; set; }
-        public int CountOfDeflect { get; set; }
-
-        public int Interval { get; set; }
-        public double AverageDamagePerSecond { get; set; }
-        public double AverageHealingPerSecond { get; set; }
-    }
-
-    public class CharacterData
-    {
-        public CharacterData()
-        {
-            AsSource = new CombatMetrics();
-            AsTarget = new CombatMetrics();
-        }
-
-        public CombatMetrics AsSource { get; set; }
-        public CombatMetrics AsTarget { get; set; }
-    }
-
-    public interface ILogMetrics
-    {
-        int TotalDamage { get; set; }
-        int TotalHealing { get; set; }
-        int CountOfParry { get; set; }
-        int CountOfDeflect { get; set; }
-    }
-
-    public interface ICombatMetrics : ILogMetrics
-    {
-        int Interval { get; set; }
-        double AverageDamagePerSecond { get; set; }
-        double AverageHealingPerSecond { get; set; }
     }
 }

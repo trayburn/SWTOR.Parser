@@ -57,13 +57,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analyzer.cs" />
+    <Compile Include="Domain\CharacterData.cs" />
+    <Compile Include="Domain\CombatData.cs" />
+    <Compile Include="Domain\CombatLog.cs" />
+    <Compile Include="Domain\CombatMetrics.cs" />
     <Compile Include="CombatParser.cs" />
     <Compile Include="Domain\Actor.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Domain\Effect.cs" />
     <Compile Include="Domain\GameObject.cs" />
     <Compile Include="Domain\LogEntry.cs" />
-    <Compile Include="DpsPerCharacter.cs" />
+    <Compile Include="Domain\DpsPerCharacter.cs" />
+    <Compile Include="Domain\ICombatMetrics.cs" />
+    <Compile Include="Domain\ILogMetrics.cs" />
+    <Compile Include="LogQueryExtensions.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Domain\Result.cs" />
   </ItemGroup>

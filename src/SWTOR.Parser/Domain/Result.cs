@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SWTOR.Parser
+namespace SWTOR.Parser.Domain
 {
     public class Result : GameObject
     {

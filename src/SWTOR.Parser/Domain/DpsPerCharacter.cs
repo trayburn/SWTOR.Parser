@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace SWTOR.Parser
+namespace SWTOR.Parser.Domain
 {
     public class DpsPerCharacter
     {
