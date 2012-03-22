@@ -58,11 +58,9 @@
   <ItemGroup>
     <Compile Include="Analyzer.cs" />
     <Compile Include="CombatParser.cs" />
-    <Compile Include="Domain\Ability.cs" />
     <Compile Include="Domain\Actor.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Domain\Effect.cs" />
-    <Compile Include="Domain\Event.cs" />
     <Compile Include="Domain\GameObject.cs" />
     <Compile Include="Domain\LogEntry.cs" />
     <Compile Include="DpsPerCharacter.cs" />

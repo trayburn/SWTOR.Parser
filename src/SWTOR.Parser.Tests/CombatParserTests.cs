@@ -245,21 +245,21 @@ namespace SWTOR.Parser.Tests
                 timestamp = now,
                 source = source,
                 target = target,
-                ability = new Ability { name = abilityName, number = RandomInt64() },
-                @event = new Event
+                ability = new GameObject { name = abilityName, number = RandomInt64() },
+                @event = new GameObject
                 {
                     name = "ApplyEffect",
                     number = 836045448945477,
-                    effect = new Effect
-                    {
-                        name = "Heal",
-                        number = 836045448945501
-                    },
-                    result = new Result
-                    {
-                        number = 836045448940874,
-                        amount = amount
-                    }
+                },
+                effect = new Effect
+                {
+                    name = "Heal",
+                    number = 836045448945501
+                },
+                result = new Result
+                {
+                    number = 836045448940874,
+                    amount = amount
                 }
             });
 
@@ -278,24 +278,24 @@ namespace SWTOR.Parser.Tests
                     timestamp = now,
                     source = source,
                     target = target,
-                    ability = new Ability { name = abilityName, number = RandomInt64() },
-                    @event = new Event
+                    ability = new GameObject { name = abilityName, number = RandomInt64() },
+                    @event = new GameObject
                     {
                         name = "ApplyEffect",
-                        number = 836045448945477,
-                        effect = new Effect
-                        {
-                            name = "Damage",
-                            number = 836045448945501
-                        },
-                        result = new Result
-                        {
-                            number = 836045448940874,
-                            amount = amount,
-                            type = type
-                        },
-                        threat = amount
-                    }
+                        number = 836045448945477
+                    },
+                    effect = new Effect
+                    {
+                        name = "Damage",
+                        number = 836045448945501
+                    },
+                    result = new Result
+                    {
+                        number = 836045448940874,
+                        amount = amount,
+                        name = type
+                    },
+                    threat = amount
                 });
 
             return this;
@@ -305,13 +305,13 @@ namespace SWTOR.Parser.Tests
         {
             // [03/17/2012 19:49:31] [@Argorash] [@Argorash] 
             // [] [Event {836045448945472}: ExitCombat {836045448945490}] ()  
-            var exitCmbt = CreateSimpleEvent("ExitCombat", 836045448945490);
             log.Add(new LogEntry
                 {
                     timestamp = now,
                     source = actor,
                     target = actor,
-                    @event = exitCmbt
+                    @event = CreateSimpleEvent(),
+                    effect = CreateEffect("ExitCombat", 836045448945490)
                 });
             return this;
         }
@@ -320,29 +320,33 @@ namespace SWTOR.Parser.Tests
         {
             // [03/17/2012 19:48:51] [@Argorash] [@Argorash] 
             // [] [Event {836045448945472}: EnterCombat {836045448945489}] ()
-            var entercmbt = CreateSimpleEvent("EnterCombat", 836045448945489);
             log.Add(new LogEntry
             {
                 timestamp = now,
                 source = actor,
                 target = actor,
-                @event = entercmbt
+                @event = CreateSimpleEvent(),
+                effect = CreateEffect("EnterCombat", 836045448945489)
             });
 
             return this;
         }
 
-        private Event CreateSimpleEvent(string effectName, Int64 effectNumber)
+        private GameObject CreateSimpleEvent()
         {
-            return new Event
+            return new GameObject
             {
                 name = "Event",
                 number = 836045448945472,
-                effect = new Effect
-                {
-                    name = effectName,
-                    number = effectNumber
-                }
+            };
+        }
+
+        private Effect CreateEffect(string effectName, Int64 effectNumber)
+        {
+            return new Effect
+            {
+                name = effectName,
+                number = effectNumber
             };
         }
 

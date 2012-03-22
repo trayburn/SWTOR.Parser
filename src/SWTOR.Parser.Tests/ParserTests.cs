@@ -150,14 +150,14 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(898601647603712, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
-            Assert.AreEqual("Damage", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(836045448945501, entry.@event.effect.number);
-            Assert.AreEqual(0, entry.@event.result.amount);
-            Assert.AreEqual(false, entry.@event.result.isCritical);
-            Assert.AreEqual("-parry", entry.@event.result.type);
-            Assert.AreEqual("", entry.@event.result.mitigation.name);
-            Assert.AreEqual(1, entry.@event.threat);
+            Assert.AreEqual("Damage", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.effect.number);
+            Assert.AreEqual(0, entry.result.amount);
+            Assert.AreEqual(false, entry.result.isCritical);
+            Assert.AreEqual("-parry", entry.result.name);
+            Assert.AreEqual("", entry.mitigation.name);
+            Assert.AreEqual(1, entry.threat);
         }
     }
 
@@ -191,14 +191,14 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(1412666283261952, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
-            Assert.AreEqual("Heroic Moment: Call on the Force", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(1412666283261952, entry.@event.effect.number);
-            Assert.AreEqual(0, entry.@event.result.amount);
-            Assert.AreEqual(false, entry.@event.result.isCritical);
-            Assert.AreEqual("", entry.@event.result.type);
-            Assert.AreEqual("", entry.@event.result.mitigation.name);
-            Assert.AreEqual(0, entry.@event.threat);
+            Assert.AreEqual("Heroic Moment: Call on the Force", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(1412666283261952, entry.effect.number);
+            Assert.AreEqual(0, entry.result.amount);
+            Assert.AreEqual(false, entry.result.isCritical);
+            Assert.AreEqual("", entry.result.name);
+            Assert.AreEqual("", entry.mitigation.name);
+            Assert.AreEqual(0, entry.threat);
         }
     }
     [TestClass]
@@ -231,14 +231,14 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(808192586023173, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
-            Assert.AreEqual("Damage", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(836045448945501, entry.@event.effect.number);
-            Assert.AreEqual(0, entry.@event.result.amount);
-            Assert.AreEqual(false, entry.@event.result.isCritical);
-            Assert.AreEqual("", entry.@event.result.type);
-            Assert.AreEqual("", entry.@event.result.mitigation.name);
-            Assert.AreEqual(209, entry.@event.threat);
+            Assert.AreEqual("Damage", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.effect.number);
+            Assert.AreEqual(0, entry.result.amount);
+            Assert.AreEqual(false, entry.result.isCritical);
+            Assert.AreEqual("", entry.result.name);
+            Assert.AreEqual("", entry.mitigation.name);
+            Assert.AreEqual(209, entry.threat);
         }
     }
 
@@ -272,14 +272,14 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(808699392163840, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
-            Assert.AreEqual("Heal", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(836045448945500, entry.@event.effect.number);
-            Assert.AreEqual(1485, entry.@event.result.amount);
-            Assert.AreEqual(true, entry.@event.result.isCritical);
-            Assert.AreEqual("", entry.@event.result.type);
-            Assert.AreEqual("", entry.@event.result.mitigation.name);
-            Assert.AreEqual(0, entry.@event.threat);
+            Assert.AreEqual("Heal", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448945500, entry.effect.number);
+            Assert.AreEqual(1485, entry.result.amount);
+            Assert.AreEqual(true, entry.result.isCritical);
+            Assert.AreEqual("", entry.result.name);
+            Assert.AreEqual("", entry.mitigation.name);
+            Assert.AreEqual(0, entry.threat);
         }
     }
 
@@ -312,14 +312,14 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(808226945761280, entry.ability.number);
             Assert.AreEqual("Event", entry.@event.name);
             Assert.AreEqual(836045448945472, entry.@event.number);
-            Assert.AreEqual("AbilityInterrupt", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(836045448945482, entry.@event.effect.number);
-            Assert.AreEqual(0, entry.@event.result.amount);
-            Assert.AreEqual(false, entry.@event.result.isCritical);
-            Assert.AreEqual("", entry.@event.result.type);
-            Assert.AreEqual("", entry.@event.result.mitigation.name);
-            Assert.AreEqual(0, entry.@event.threat);
+            Assert.AreEqual("AbilityInterrupt", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448945482, entry.effect.number);
+            Assert.AreEqual(0, entry.result.amount);
+            Assert.AreEqual(false, entry.result.isCritical);
+            Assert.AreEqual("", entry.result.name);
+            Assert.AreEqual("", entry.mitigation.name);
+            Assert.AreEqual(0, entry.threat);
         }
 
     }
@@ -354,17 +354,17 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(812165430771712, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
-            Assert.AreEqual("Damage", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(836045448945501, entry.@event.effect.number);
-            Assert.AreEqual(1903, entry.@event.result.amount);
-            Assert.AreEqual(true, entry.@event.result.isCritical);
-            Assert.AreEqual("energy", entry.@event.result.type);
-            Assert.AreEqual(836045448940874, entry.@event.result.number);
-            Assert.AreEqual(1903, entry.@event.result.mitigation.amount);
-            Assert.AreEqual("absorbed", entry.@event.result.mitigation.type);
-            Assert.AreEqual(836045448945511, entry.@event.result.mitigation.number);
-            Assert.AreEqual(1903, entry.@event.threat);
+            Assert.AreEqual("Damage", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.effect.number);
+            Assert.AreEqual(1903, entry.result.amount);
+            Assert.AreEqual(true, entry.result.isCritical);
+            Assert.AreEqual("energy", entry.result.name);
+            Assert.AreEqual(836045448940874, entry.result.number);
+            Assert.AreEqual(1903, entry.mitigation.amount);
+            Assert.AreEqual("absorbed", entry.mitigation.name);
+            Assert.AreEqual(836045448945511, entry.mitigation.number);
+            Assert.AreEqual(1903, entry.threat);
         }
     }
 
@@ -399,13 +399,13 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(812165430771712, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
-            Assert.AreEqual("Damage", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(836045448945501, entry.@event.effect.number);
-            Assert.AreEqual(1002, entry.@event.result.amount);
-            Assert.AreEqual("energy", entry.@event.result.type);
-            Assert.AreEqual(836045448940874, entry.@event.result.number);
-            Assert.AreEqual(1002, entry.@event.threat);
+            Assert.AreEqual("Damage", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.effect.number);
+            Assert.AreEqual(1002, entry.result.amount);
+            Assert.AreEqual("energy", entry.result.name);
+            Assert.AreEqual(836045448940874, entry.result.number);
+            Assert.AreEqual(1002, entry.threat);
         }
     }
 
@@ -438,10 +438,10 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual("", entry.ability.name);
             Assert.AreEqual("Restore", entry.@event.name);
             Assert.AreEqual(836045448945476, entry.@event.number);
-            Assert.AreEqual("focus point", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(836045448938496, entry.@event.effect.number);
-            Assert.AreEqual(3, entry.@event.result.amount);
+            Assert.AreEqual("focus point", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(836045448938496, entry.effect.number);
+            Assert.AreEqual(3, entry.result.amount);
         }
     }
 
@@ -475,10 +475,10 @@ namespace SWTOR.Parser.Tests
             Assert.AreEqual(1781496599805952, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
-            Assert.AreEqual("Lucky Shots", entry.@event.effect.name);
-            Assert.AreEqual("", entry.@event.effect.subtype);
-            Assert.AreEqual(1781496599806223, entry.@event.effect.number);
-            Assert.AreEqual(0, entry.@event.result.amount);
+            Assert.AreEqual("Lucky Shots", entry.effect.name);
+            Assert.AreEqual("", entry.effect.subtype);
+            Assert.AreEqual(1781496599806223, entry.effect.number);
+            Assert.AreEqual(0, entry.result.amount);
         }
     }
 
@@ -503,7 +503,7 @@ namespace SWTOR.Parser.Tests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(entry.@event.result.amount, 0);
+            Assert.AreEqual(entry.result.amount, 0);
         }
 
         [TestMethod]
@@ -534,9 +534,9 @@ namespace SWTOR.Parser.Tests
             var entry = list.First();
             Assert.AreEqual(entry.@event.name, "ApplyEffect");
             Assert.AreEqual(entry.@event.number, 836045448945477);
-            Assert.AreEqual(entry.@event.effect.name, "Stunned");
-            Assert.AreEqual(entry.@event.effect.subtype, "Physical");
-            Assert.AreEqual(entry.@event.effect.number, 2848585519464704);
+            Assert.AreEqual(entry.effect.name, "Stunned");
+            Assert.AreEqual(entry.effect.subtype, "Physical");
+            Assert.AreEqual(entry.effect.number, 2848585519464704);
         }
 
         [TestMethod]

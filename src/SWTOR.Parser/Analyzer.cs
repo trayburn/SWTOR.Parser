@@ -11,7 +11,7 @@ namespace SWTOR.Parser
             var list = new List<DpsPerCharacter>();
             var startTimestamp = log.First().timestamp;
             var query = from entry in log
-                        where entry.@event.effect.name == "Damage"
+                        where entry.effect.name == "Damage"
                         group entry by (entry.timestamp - startTimestamp).TotalSeconds into second
                         select new { interval = Convert.ToInt32(second.Key), entries = second.ToList() };
 
@@ -19,7 +19,7 @@ namespace SWTOR.Parser
             {
                 var query2 = from entry in i.entries
                              group entry by entry.source.name into character
-                             select new DpsPerCharacter { interval = i.interval, character = character.Key, damage = character.Sum(x => x.@event.result.amount) };
+                             select new DpsPerCharacter { interval = i.interval, character = character.Key, damage = character.Sum(x => x.result.amount) };
                 list.AddRange(query2);
             }
 

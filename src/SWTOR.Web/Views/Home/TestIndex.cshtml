@@ -76,7 +76,7 @@
                 if (xhr.readyState == 4 && xhr.status == 200) {
                     var data = eval(xhr.responseText);
                     var newContent = '<table border=1>';
-                    newContent += '<tr><th>Timestamp</th><th>Source</th><th>Target</th><th>Ability</th><th>Event</th><th>Effect</th><th>Result</th>';
+                    newContent += '<tr><th>Timestamp</th><th>Source</th><th>Target</th><th>Ability</th><th>Event</th><th>Effect</th>';
                     newContent += '<th>Amount</th><th>Type</th><th>IsCritical</th><th>Threat</th></tr>';
 
                     for (var item in data) {
@@ -87,12 +87,11 @@
                         newContent += '<td>' + e.target.name + '</td>';
                         newContent += '<td>' + e.ability.name + '</td>';
                         newContent += '<td>' + e.event.name + '</td>';
-                        newContent += '<td>' + e.event.effect.name + '</td>';
-                        newContent += '<td>' + e.event.result.name + '</td>';
-                        newContent += '<td>' + e.event.result.amount + '</td>';
-                        newContent += '<td>' + e.event.result.type + '</td>';
-                        newContent += '<td>' + e.event.result.isCritical + '</td>';
-                        newContent += '<td>' + e.event.threat + '</td>';
+                        newContent += '<td>' + e.effect.name + '</td>';
+                        newContent += '<td>' + e.result.amount + '</td>';
+                        newContent += '<td>' + e.result.name + '</td>';
+                        newContent += '<td>' + e.result.isCritical + '</td>';
+                        newContent += '<td>' + e.threat + '</td>';
                         newContent += '</tr>';
                     }
                     newContent += '</table>';

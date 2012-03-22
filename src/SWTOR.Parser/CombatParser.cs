@@ -13,13 +13,13 @@ namespace SWTOR.Parser
 
             foreach (LogEntry logEntry in log)
             {
-                if (logEntry.@event.effect.name == "EnterCombat")
+                if (logEntry.effect.name == "EnterCombat")
                     currentCombat = new CombatData();
 
                 if (currentCombat != null)
                     currentCombat.Log.Add(logEntry);
 
-                if (logEntry.@event.effect.name == "ExitCombat")
+                if (logEntry.effect.name == "ExitCombat")
                 {
                     cLog.Combats.Add(currentCombat);
                     currentCombat = null;
@@ -39,8 +39,8 @@ namespace SWTOR.Parser
 
         private void Analyzer(ICombatMetrics data, IEnumerable<LogEntry> log)
         {
-            data.TotalDamage = log.DamageEffects().Sum(m => m.@event.result.amount);
-            data.TotalHealing = log.HealingEffects().Sum(m => m.@event.result.amount);
+            data.TotalDamage = log.DamageEffects().Sum(m => m.result.amount);
+            data.TotalHealing = log.HealingEffects().Sum(m => m.result.amount);
             data.CountOfParry = log.ParryEffects().Count();
             data.CountOfDeflect = log.DeflectEffects().Count();
         }
@@ -50,22 +50,22 @@ namespace SWTOR.Parser
     {
         public static IEnumerable<LogEntry> DamageEffects(this IEnumerable<LogEntry> log)
         {
-            return log.Where(m => m.@event.name == "ApplyEffect" && m.@event.effect.name == "Damage");
+            return log.Where(m => m.@event.name == "ApplyEffect" && m.effect.name == "Damage");
         }
 
         public static IEnumerable<LogEntry> HealingEffects(this IEnumerable<LogEntry> log)
         {
-            return log.Where(m => m.@event.name == "ApplyEffect" && m.@event.effect.name == "Heal");
+            return log.Where(m => m.@event.name == "ApplyEffect" && m.effect.name == "Heal");
         }
 
         public static IEnumerable<LogEntry> ParryEffects(this IEnumerable<LogEntry> log)
         {
-            return log.DamageEffects().Where(m => m.@event.result.type == "-parry");
+            return log.DamageEffects().Where(m => m.result.name == "-parry");
         }
 
         public static IEnumerable<LogEntry> DeflectEffects(this IEnumerable<LogEntry> log)
         {
-            return log.DamageEffects().Where(m => m.@event.result.type == "-deflect");
+            return log.DamageEffects().Where(m => m.result.name == "-deflect");
         }
     }
 

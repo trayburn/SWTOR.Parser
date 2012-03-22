@@ -26,7 +26,7 @@ namespace SWTOR.Parser
 
                     rest = ParseSourceAndTarget(entry, btwn.Rest);
                     rest = ParseAbility(entry, rest);
-                    rest = ParseEvent(entry, rest);
+                    rest = ParseEventAndEffect(entry, rest);
                     rest = ParseResult(entry, rest);
                     rest = ParseThreat(entry, rest);
                 }
@@ -48,8 +48,8 @@ namespace SWTOR.Parser
             // <1002>
             var btwn = Between('<', '>', line);
             if (string.IsNullOrWhiteSpace(btwn.FoundValue) == false)
-                entry.@event.threat = Convert.ToInt32(btwn.FoundValue);
-            else entry.@event.threat = 0;
+                entry.threat = Convert.ToInt32(btwn.FoundValue);
+            else entry.threat = 0;
             return btwn.Rest;
         }
 
@@ -68,8 +68,8 @@ namespace SWTOR.Parser
                     btwn.FoundValue.EndsWith("-"))
                 {
                     // Handle the (3) case
-                    entry.@event.result.isCritical = btwn.FoundValue.Contains("*");
-                    entry.@event.result.amount = Convert.ToInt32(btwn.FoundValue.Replace("*","").Replace("-",""));
+                    entry.result.isCritical = btwn.FoundValue.Contains("*");
+                    entry.result.amount = Convert.ToInt32(btwn.FoundValue.Replace("*","").Replace("-",""));
                 }
                 else
                 {
@@ -79,15 +79,14 @@ namespace SWTOR.Parser
                         // handle (1903* energy {836045448940874} (1903 absorbed {836045448945511}))
                         // splits to "1903* energy {836045448940874} " 
                         //       and "1903 absorbed {836045448945511}"
-                        ParseResultPart(entry.@event.result, splitMitigation[0]);
-                        entry.@event.result.mitigation = new Result();
-                        ParseResultPart(entry.@event.result.mitigation, splitMitigation[1]);
+                        ParseResultPart(entry.result, splitMitigation[0]);
+                        ParseResultPart(entry.mitigation, splitMitigation[1]);
                     }
                     else
                     {
                         // Handle the (1002 energy {836045448940874}) case
                         // also (131* elemental {836045448940875}) case, * is a critical
-                        ParseResultPart(entry.@event.result, btwn.FoundValue);
+                        ParseResultPart(entry.result, btwn.FoundValue);
                     }
                 }
             }
@@ -104,10 +103,10 @@ namespace SWTOR.Parser
             var splitBefore = btwn.BeforeFound.Split(new[] { ' ' }, 2);
             entry.isCritical = splitBefore[0].Contains("*");
             entry.amount = Convert.ToInt32(splitBefore[0].Replace("*", ""));
-            entry.type = splitBefore[1].Trim();
+            entry.name = splitBefore[1].Trim();
         }
 
-        private string ParseEvent(LogEntry entry, string line)
+        private string ParseEventAndEffect(LogEntry entry, string line)
         {
             // [ApplyEffect {836045448945477}: Stunned (Physical) {2848585519464704}]
             // [ApplyEffect {836045448945477}: Lucky Shots {1781496599806223}]
@@ -120,18 +119,18 @@ namespace SWTOR.Parser
             entry.@event.number = Convert.ToInt64(btwn.FoundValue);
 
             btwn = Between('{', '}', splitFound[1]);
-            entry.@event.effect.number = Convert.ToInt64(btwn.FoundValue);
+            entry.effect.number = Convert.ToInt64(btwn.FoundValue);
             btwn = Between('(', ')', btwn.BeforeFound);
             if (btwn.FoundValue != null)
             {
                 // Handle subtype if present
-                entry.@event.effect.name = btwn.BeforeFound.Trim();
-                entry.@event.effect.subtype = btwn.FoundValue.Trim();
+                entry.effect.name = btwn.BeforeFound.Trim();
+                entry.effect.subtype = btwn.FoundValue.Trim();
             }
             else
             {
-                entry.@event.effect.name = btwn.Original.Trim();
-                entry.@event.effect.subtype = string.Empty;
+                entry.effect.name = btwn.Original.Trim();
+                entry.effect.subtype = string.Empty;
             }
 
             return rest;
@@ -148,7 +147,6 @@ namespace SWTOR.Parser
                 entry.ability.name = btwn.BeforeFound.Trim();
                 entry.ability.number = Convert.ToInt64(btwn.FoundValue);
             }
-            else entry.ability = new Ability();
             return rest;
         }
 
@@ -171,7 +169,6 @@ namespace SWTOR.Parser
                     entry.source.isPlayer = false;
                 }
             }
-            else entry.source = new Actor();
 
             btwn = Between('[', ']', rest);
             rest = btwn.Rest;
@@ -190,7 +187,6 @@ namespace SWTOR.Parser
                     entry.target.isPlayer = false;
                 }
             }
-            else entry.target = new Actor();
 
             return rest;
         }
