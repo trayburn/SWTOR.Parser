@@ -118,8 +118,51 @@ namespace SWTOR.Parser.Tests
             get { return 2416; }
         }
     }
+
     [TestClass]
-    public class MyClass : BaseParserTest
+    public class OneLineAndParry_ParserTests : BaseParserTest
+    {
+        public override void BuildTestString(StringBuilder bldr)
+        {
+            bldr.AppendLine("[03/17/2012 19:48:55] [@Invi] [@Argorash] " + 
+                "[Assault {898601647603712}] " + 
+                "[ApplyEffect {836045448945477}: Damage {836045448945501}] (0 -parry {836045448945503}) <1>");
+        }
+
+
+        [TestMethod]
+        public void Parse_Should_Return_Entry_Correctly()
+        {
+            // Arrange
+
+
+            // Act
+            var list = target.Parse(rdr);
+
+            // Assert
+            var entry = list.First();
+            Assert.AreEqual(new DateTime(2012, 3, 17, 19, 48, 55, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Invi", entry.source.name);
+            Assert.AreEqual(true, entry.source.isPlayer);
+            Assert.AreEqual("Argorash", entry.target.name);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Assault", entry.ability.name);
+            Assert.AreEqual(898601647603712, entry.ability.number);
+            Assert.AreEqual("ApplyEffect", entry.@event.name);
+            Assert.AreEqual(836045448945477, entry.@event.number);
+            Assert.AreEqual("Damage", entry.@event.effect.name);
+            Assert.AreEqual("", entry.@event.effect.subtype);
+            Assert.AreEqual(836045448945501, entry.@event.effect.number);
+            Assert.AreEqual(0, entry.@event.result.amount);
+            Assert.AreEqual(false, entry.@event.result.isCritical);
+            Assert.AreEqual("-parry", entry.@event.result.type);
+            Assert.AreEqual("", entry.@event.result.mitigation.name);
+            Assert.AreEqual(1, entry.@event.threat);
+        }
+    }
+
+    [TestClass]
+    public class OneLineAndColonInEffect_ParserTests : BaseParserTest
     {
         public override void BuildTestString(StringBuilder bldr)
         {

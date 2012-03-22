@@ -26,15 +26,23 @@ namespace SWTOR.Parser
                 }
             }
 
-            Analyzer(cLog);
+            var allCombatLogs = cLog.Combats.SelectMany(m => m.Log);
+            Analyzer(cLog, allCombatLogs);
+
+            foreach (var combat in cLog.Combats)
+            {
+                Analyzer(combat, combat.Log);
+            }
 
             return cLog;
         }
 
-        private void Analyzer(CombatLog log)
+        private void Analyzer(ICombatMetrics data, IEnumerable<LogEntry> log)
         {
-            var allCombatLogs = log.Combats.SelectMany(m => m.Log);
-            log.TotalDamage = allCombatLogs.DamageEffects().Sum(m => m.@event.result.amount);
+            data.TotalDamage = log.DamageEffects().Sum(m => m.@event.result.amount);
+            data.TotalHealing = log.HealingEffects().Sum(m => m.@event.result.amount);
+            data.CountOfParry = log.ParryEffects().Count();
+            data.CountOfDeflect = log.DeflectEffects().Count();
         }
     }
 
@@ -44,20 +52,39 @@ namespace SWTOR.Parser
         {
             return log.Where(m => m.@event.name == "ApplyEffect" && m.@event.effect.name == "Damage");
         }
+
+        public static IEnumerable<LogEntry> HealingEffects(this IEnumerable<LogEntry> log)
+        {
+            return log.Where(m => m.@event.name == "ApplyEffect" && m.@event.effect.name == "Heal");
+        }
+
+        public static IEnumerable<LogEntry> ParryEffects(this IEnumerable<LogEntry> log)
+        {
+            return log.DamageEffects().Where(m => m.@event.result.type == "-parry");
+        }
+
+        public static IEnumerable<LogEntry> DeflectEffects(this IEnumerable<LogEntry> log)
+        {
+            return log.DamageEffects().Where(m => m.@event.result.type == "-deflect");
+        }
     }
 
-    public class CombatLog
+    public class CombatLog : ICombatMetrics
     {
         public CombatLog()
         {
             Combats = new List<CombatData>();
         }
 
-        public int TotalDamage { get; set; }
         public List<CombatData> Combats { get; private set; }
+
+        public int TotalDamage { get; set; }
+        public int TotalHealing { get; set; }
+        public int CountOfParry { get; set; }
+        public int CountOfDeflect { get; set; }
     }
 
-    public class CombatData
+    public class CombatData : ICombatMetrics
     {
         public CombatData()
         {
@@ -65,5 +92,18 @@ namespace SWTOR.Parser
         }
 
         public List<LogEntry> Log { get; private set; }
+
+        public int TotalDamage { get; set; }
+        public int TotalHealing { get; set; }
+        public int CountOfParry { get; set; }
+        public int CountOfDeflect { get; set; }
+    }
+
+    public interface ICombatMetrics
+    {
+        int TotalDamage { get; set; }
+        int TotalHealing { get; set; }
+        int CountOfParry { get; set; }
+        int CountOfDeflect { get; set; }
     }
 }

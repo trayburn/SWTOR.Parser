@@ -58,6 +58,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseCombatParserIntegrationTest.cs" />
     <Compile Include="BaseFileParserTest.cs" />
     <Compile Include="BaseParserTest.cs" />
     <Compile Include="CombatParserTests.cs" />
@@ -101,5 +102,8 @@
       <Project>{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}</Project>
       <Name>SWTOR.Parser</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Samples\oneCombat.txt" />
   </ItemGroup>
 </Project>

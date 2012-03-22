@@ -2,11 +2,73 @@ using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SWTOR.Parser.Tests
 {
     [TestClass]
-    public class CombatParserTests
+    public class OneCombatIntegration_CombatParserTests : BaseCombatParserIntegrationTest
+    {
+        public override string FileName
+        {
+            get { return "oneCombat.txt"; }
+        }
+
+        [TestMethod]
+        public void Ensure_Damage_Total()
+        {
+            // Arrange
+            
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(41620, res.TotalDamage);
+        }
+
+        [TestMethod]
+        public void Ensure_Healing_Total()
+        {
+            // Arrange
+            
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(21134, res.TotalHealing);
+        }
+
+
+        [TestMethod]
+        public void Ensure_Parry_Count()
+        {
+            // Arrange
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(10, res.CountOfParry);
+        }
+
+        [TestMethod]
+        public void Ensure_Deflect_Count()
+        {
+            // Arrange
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(1, res.CountOfDeflect);
+        }
+    }
+    [TestClass]
+    public class OneAndTwoCombats_CombatParserTests
     {
         private CombatParser target;
         private List<LogEntry> log;
@@ -22,6 +84,66 @@ namespace SWTOR.Parser.Tests
             h = new LogHelper(log);
             player = new Actor { name = "Gisben", isPlayer = true };
             mob = new Actor { name = "Soa", number = 836045448947788 };
+        }
+
+        [TestMethod]
+        public void Given_Two_Combats_With_Damage_When_Parse_Then_Sum_Damage_To_Each_Combat_TotalDamage()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Damage(player, mob, "Headbutt", 250, "energy").Tick()
+                .Damage(player, mob, "Headbutt", 250, "energy").Tick()
+                .ExitCombat(player).Tick();
+            h.EnterCombat(player).Tick()
+                .Damage(mob, player, "Junk Punch", 999, "physical").Tick()
+                .Damage(mob, player, "Junk Punch", 1, "physical").Tick()
+                .ExitCombat(player);
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(500, res.Combats[0].TotalDamage);
+            Assert.AreEqual(1000, res.Combats[1].TotalDamage);
+        }
+
+        [TestMethod]
+        public void Given_Two_Combats_With_Healing_When_Parse_Then_Sum_Healing_To_Each_Combat_TotalHealing()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Heal(player, player, "Rejuvination", 1024).Tick()
+                .Heal(player, player, "Rejuvination", 1024).Tick()
+                .ExitCombat(player).Tick();
+            h.EnterCombat(player).Tick()
+                .Heal(player, player, "Rejuvination", 2048).Tick()
+                .Heal(player, player, "Rejuvination", 2048).Tick()
+                .ExitCombat(player).Tick();
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(2048, res.Combats[0].TotalHealing);
+            Assert.AreEqual(4096, res.Combats[1].TotalHealing);
+        }
+
+        [TestMethod]
+        public void Given_Two_Combats_With_Healing_When_Parse_Then_Sum_Healing_To_TotalHealing()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Heal(player, player, "Rejuvination", 1024).Tick()
+                .ExitCombat(player).Tick();
+            h.EnterCombat(player).Tick()
+                .Heal(player, player, "Rejuvination", 2048).Tick()
+                .ExitCombat(player).Tick();
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(3072, res.TotalHealing);
         }
 
         [TestMethod]
@@ -109,6 +231,38 @@ namespace SWTOR.Parser.Tests
         public LogHelper Tick()
         {
             now = now.AddSeconds(1);
+            return this;
+        }
+
+        public LogHelper Heal(Actor source, Actor target, string abilityName, int amount)
+        {
+            // [03/17/2012 19:45:04] [@Argorash] [@Argorash] 
+            // [Heroic Moment: Call on the Force {1412666283261952}] 
+            // [ApplyEffect {836045448945477}: Heal {836045448945500}] (434)
+
+            log.Add(new LogEntry
+            {
+                timestamp = now,
+                source = source,
+                target = target,
+                ability = new Ability { name = abilityName, number = RandomInt64() },
+                @event = new Event
+                {
+                    name = "ApplyEffect",
+                    number = 836045448945477,
+                    effect = new Effect
+                    {
+                        name = "Heal",
+                        number = 836045448945501
+                    },
+                    result = new Result
+                    {
+                        number = 836045448940874,
+                        amount = amount
+                    }
+                }
+            });
+
             return this;
         }
 

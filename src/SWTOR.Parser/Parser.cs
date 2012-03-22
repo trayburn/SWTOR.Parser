@@ -5,7 +5,7 @@ namespace SWTOR.Parser
 {
     public class Parser
     {
-        public IList<LogEntry> Parse(System.IO.TextReader rdr)
+        public List<LogEntry> Parse(System.IO.TextReader rdr)
         {
             if (rdr == null) throw new ArgumentNullException("rdr");
 
