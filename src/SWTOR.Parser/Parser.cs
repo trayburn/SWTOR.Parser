@@ -133,23 +133,15 @@ namespace SWTOR.Parser
             var splitFound = btwn.FoundValue.Split(new[] { ':' }, 2);
             var rest = btwn.Rest;
 
-            btwn = Between('{', '}', splitFound[0]);
-            entry.@event.name = btwn.BeforeFound.Trim();
-            entry.@event.number = Convert.ToInt64(btwn.FoundValue);
+            ParseGameObject(entry.@event, splitFound[0]);
 
-            btwn = Between('{', '}', splitFound[1]);
-            entry.effect.number = Convert.ToInt64(btwn.FoundValue);
-            btwn = Between('(', ')', btwn.BeforeFound);
+            ParseGameObject(entry.effect, splitFound[1]);
+            btwn = Between('(', ')', entry.effect.name);
             if (btwn.FoundValue != null)
             {
                 // Handle subtype if present
                 entry.effect.name = btwn.BeforeFound.Trim();
                 entry.effect.subtype = btwn.FoundValue.Trim();
-            }
-            else
-            {
-                entry.effect.name = btwn.Original.Trim();
-                entry.effect.subtype = string.Empty;
             }
 
             return rest;
@@ -162,9 +154,7 @@ namespace SWTOR.Parser
             var rest = btwn.Rest;
             if (string.IsNullOrWhiteSpace(btwn.FoundValue) == false)
             {
-                btwn = Between('{', '}', btwn.FoundValue);
-                entry.ability.name = btwn.BeforeFound.Trim();
-                entry.ability.number = Convert.ToInt64(btwn.FoundValue);
+                ParseGameObject(entry.ability, btwn.FoundValue);
             }
             return rest;
         }
@@ -175,20 +165,18 @@ namespace SWTOR.Parser
             var rest = btwn.Rest;
             if (string.IsNullOrWhiteSpace(btwn.FoundValue) == false)
             {
-                btwn = Between('{', '}', btwn.FoundValue);
-                entry.source.isPlayer = btwn.BeforeFound.StartsWith("@");
-                entry.source.name = btwn.BeforeFound.Replace("@", "").Trim();
-                entry.source.number = Convert.ToInt64(btwn.FoundValue);
+                ParseGameObject(entry.source, btwn.FoundValue);
+                entry.source.isPlayer = entry.source.name.StartsWith("@");
+                entry.source.name = entry.source.name.Replace("@", "").Trim();
             }
 
             btwn = Between('[', ']', rest);
             rest = btwn.Rest;
             if (string.IsNullOrWhiteSpace(btwn.FoundValue) == false)
             {
-                btwn = Between('{', '}', btwn.FoundValue);
-                entry.target.isPlayer = btwn.BeforeFound.StartsWith("@");
-                entry.target.name = btwn.BeforeFound.Replace("@", "").Trim();
-                entry.target.number = Convert.ToInt64(btwn.FoundValue);
+                ParseGameObject(entry.target, btwn.FoundValue);
+                entry.target.isPlayer = entry.target.name.StartsWith("@");
+                entry.target.name = entry.target.name.Replace("@", "").Trim();
             }
 
             return rest;
