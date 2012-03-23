@@ -13,13 +13,21 @@ header, footer, nav, section
 
 /* Combat Report Styling 
 -----------------------------------------------------------*/
+table { width:100%; }
 .report 
 {
     padding: 10px 0px 10px 0px;
+    vertical-align:text-top;
 }
-.combat-report 
+.display-column
 {
-    padding: 10px 10px 10px 10px;
+    display:inline-block;
+    background-color:#e2e2e2;
+    margin:5px;
+    padding:5px;
+    vertical-align:text-top;
+    height:100%;
+    width:300px;
 }
 .display-group
 {
@@ -39,7 +47,6 @@ header, footer, nav, section
 .display-value
 {
     text-align: left;
-    border-right: 1px solid black;
     width:100px;
 }
 .display-label, .display-value

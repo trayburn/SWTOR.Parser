@@ -58,14 +58,24 @@ namespace SWTOR.Parser
             data.CountOfParry = log.ParryEffects().Count();
             data.CountOfDeflect = log.DeflectEffects().Count();
 
+            AbilityAnalyzer(data, log);
+        }
+
+        private static void AbilityAnalyzer(ILogMetrics data, IEnumerable<LogEntry> log)
+        {
             var abilityNames = log.Where(m => m.ability.name != "").Select(m => m.ability.name).Distinct();
             foreach (var name in abilityNames)
             {
-                var count = new AbilityCount();
+                var count = new AbilityMetrics();
+                var abilityLog = log.Where(m => m.ability.name == name);
                 data.AbilityCounts.Add(count);
                 count.Name = name;
-                count.Number = log.First(m => m.ability.name == name).ability.number;
-                count.Count = log.Count(m => m.ability.name == name);
+                count.Number = abilityLog.First().ability.number;
+                count.Count = abilityLog.Count();
+                count.MaximumDamage = abilityLog.Max(m => m.result.amount);
+                count.MinimumDamage = abilityLog.Min(m => m.result.amount);
+                count.AverageDamage = abilityLog.Average(m => m.result.amount);
+                count.CountOfCriticals = abilityLog.Where(m => m.result.isCritical).Count();
             }
             data.AbilityCounts = data.AbilityCounts.OrderByDescending(m => m.Count).ThenBy(m => m.Name).ToList();
         }

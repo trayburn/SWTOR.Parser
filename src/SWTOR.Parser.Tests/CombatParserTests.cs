@@ -132,9 +132,9 @@ namespace SWTOR.Parser.Tests.CombatParserTests
         {
             // Arrange
             h.EnterCombat(player).Tick()
-                .Damage(mob, player, "Headbutt", 250, "energy").Tick()
+                .Damage(mob, player, "Headbutt", 150, "energy").Tick()
                 .Damage(player, mob, "Junkpunch", 1000, "physical")
-                .Damage(mob, player, "Headbutt", 250, "energy").Tick()
+                .Damage(mob, player, "Headbutt", 450, "energy", true).Tick()
                 .ExitCombat(player);
 
 
@@ -144,8 +144,17 @@ namespace SWTOR.Parser.Tests.CombatParserTests
             // Assert
             Assert.AreEqual(2, res.AbilityCounts[0].Count);
             Assert.AreEqual("Headbutt", res.AbilityCounts[0].Name);
+            Assert.AreEqual(300.0, res.AbilityCounts[0].AverageDamage);
+            Assert.AreEqual(150, res.AbilityCounts[0].MinimumDamage);
+            Assert.AreEqual(450, res.AbilityCounts[0].MaximumDamage);
+            Assert.AreEqual(1, res.AbilityCounts[0].CountOfCriticals);
+
             Assert.AreEqual(1, res.AbilityCounts[1].Count);
             Assert.AreEqual("Junkpunch", res.AbilityCounts[1].Name);
+            Assert.AreEqual(1000.00, res.AbilityCounts[1].AverageDamage);
+            Assert.AreEqual(1000, res.AbilityCounts[1].MinimumDamage);
+            Assert.AreEqual(1000, res.AbilityCounts[1].MaximumDamage);
+            Assert.AreEqual(0, res.AbilityCounts[1].CountOfCriticals);
         }
 
         [TestMethod]
@@ -432,7 +441,7 @@ namespace SWTOR.Parser.Tests.CombatParserTests
             return this;
         }
 
-        public LogHelper Damage(Actor source, Actor target, string abilityName, int amount, string type)
+        public LogHelper Damage(Actor source, Actor target, string abilityName, int amount, string type, bool isCritical = false)
         {
             // [03/17/2012 19:49:20] [@Psyfe] [@Argorash] 
             // [Series of Shots {2299572734918656}] 
@@ -459,7 +468,8 @@ namespace SWTOR.Parser.Tests.CombatParserTests
                     {
                         number = 836045448940874,
                         amount = amount,
-                        name = type
+                        name = type, 
+                        isCritical = isCritical
                     },
                     threat = amount
                 });

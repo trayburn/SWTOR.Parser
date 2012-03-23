@@ -2,86 +2,165 @@
 @{
     ViewBag.Title = "Combat Report";
 
+    Func<string, object> labelDiv =
+    @<div class="display-label">
+        @item:</div>;
+    Func<string, object> valueDiv =
+    @<div class="display-value">
+        @item</div>;
+    Func<Tuple<string, string>, object> groupDiv =
+    @<div class="display-group">
+        @labelDiv(@item.Item1)
+        @valueDiv(@item.Item2)
+    </div>;
+
+    Func<Tuple<SWTOR.Parser.Domain.ILogMetrics, string, string>, object> abilityReport =
+    @<div class="abilities-used">
+        <table id="ability-table-@item.Item2-@item.Item3">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Count
+                    </th>
+                    <th>
+                        # of Criticals
+                    </th>
+                    <th>
+                        Avg. Dmg.
+                    </th>
+                    <th>
+                        Max. Dmg.
+                    </th>
+                    <th>
+                        Min. Dmg.
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var count in item.Item1.AbilityCounts)
+                {
+                    <tr>
+                        <td>@count.Name
+                        </td>
+                        <td>@count.Count.ToString("#,0")
+                        </td>
+                        <td>@count.CountOfCriticals.ToString("#,0")
+                        </td>
+                        <td>@count.AverageDamage.ToString("#,0.0")
+                        </td>
+                        <td>@count.MaximumDamage.ToString("#,0")
+                        </td>
+                        <td>@count.MinimumDamage.ToString("#,0")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <script>
+            $(document).ready(function () {
+                $('#ability-table-@item.Item2-@item.Item3').dataTable({ "bJQueryUI": true, "aaSorting": [[1, "desc"],[0, "asc"]] });
+            });
+        </script>
+    </div>;
+
+    Func<SWTOR.Parser.Domain.ILogMetrics, object> totalDamage =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Total Damage", @item.TotalDamage.ToString("#,0")))
+    </text>;
+
+    Func<SWTOR.Parser.Domain.ILogMetrics, object> totalHealing =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Total Healing", @item.TotalHealing.ToString("#,0")))
+    </text>;
+
+    Func<SWTOR.Parser.Domain.ILogMetrics, object> totalThreat =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Total Threat", @item.TotalThreat.ToString("#,0")))
+    </text>;
+
+    Func<SWTOR.Parser.Domain.ILogMetrics, object> countDeflect =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Count of Deflect", @item.CountOfDeflect.ToString("#,0")))
+    </text>;
+
+    Func<SWTOR.Parser.Domain.ILogMetrics, object> countParry =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Count of Parry", @item.CountOfParry.ToString("#,0")))
+    </text>;
+
+
+    Func<SWTOR.Parser.Domain.ICombatMetrics, object> intervalDiv =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Total Time (sec)", @item.Interval.ToString("#,0")))
+    </text>;
+
+    Func<SWTOR.Parser.Domain.ICombatMetrics, object> avgDPS =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Average DPS", @item.AverageDamagePerSecond.ToString("#,0.0")))
+    </text>;
+
+    Func<SWTOR.Parser.Domain.ICombatMetrics, object> avgHPS =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Average HPS", @item.AverageHealingPerSecond.ToString("#,0.0")))
+    </text>;
+
+    Func<SWTOR.Parser.Domain.ICombatMetrics, object> avgTPS =
+    @<text>
+    @groupDiv(new Tuple<string, string>("Average TPS", @item.AverageThreatPerSecond.ToString("#,0.0")))
+    </text>;
+
     Func<SWTOR.Parser.Domain.ILogMetrics, object> report =
     @<div class="report">
-        <div class="display-group">
-            <div class="display-label">
-                Total Damage:</div>
-            <div class="display-value">@item.TotalDamage.ToString("#,0")</div>
+        <div class="display-column">
+            @totalDamage(item)
         </div>
-        <div class="display-group">
-            <div class="display-label">
-                Total Healing:</div>
-            <div class="display-value">@item.TotalHealing.ToString("#,0")</div>
+        <div class="display-column">
+            @totalHealing(item)
         </div>
-        <div class="display-group">
-            <div class="display-label">
-                Total Threat:</div>
-            <div class="display-value">@item.TotalThreat.ToString("#,0")</div>
+        <div class="display-column">
+            @totalThreat(item)
         </div>
-        <div class="display-group">
-            <div class="display-label">
-                # of Deflects:</div>
-            <div class="display-value">@item.CountOfDeflect.ToString("#,0")</div>
-        </div>
-        <div class="display-group">
-            <div class="display-label">
-                # of Parries:</div>
-            <div class="display-value">@item.CountOfParry.ToString("#,0")</div>
-        </div>
-        <div class="abilities-used">
-            <h3>
-                Abilities Used</h3>
-            @foreach (var count in item.AbilityCounts)
-            {
-                <div class="display-group">
-                    <div class="display-label">
-                        @count.Name:</div>
-                    <div class="display-value">@count.Count.ToString("#,0")</div>
-                </div>
-            }
+        <div class="display-column">
+            @countDeflect(item)
+            @countParry(item)
         </div>
     </div>;
 
     Func<SWTOR.Parser.Domain.ICombatMetrics, object> combatReport =
-    @<div class="combat-report">
-        <div class="display-group">
-            <div class="display-label">
-                Total Time (sec):</div>
-            <div class="display-value">@item.Interval.ToString("#,0")</div>
+    @<div class="report">
+        <div class="display-column">
+            @totalDamage(item)
+            @avgDPS(@item)
         </div>
-        <div class="display-group">
-            <div class="display-label">
-                Average DPS:</div>
-            <div class="display-value">@item.AverageDamagePerSecond.ToString("#,0.0")</div>
+        <div class="display-column">
+            @totalHealing(item)
+            @avgHPS(@item)
         </div>
-        <div class="display-group">
-            <div class="display-label">
-                Average HPS:</div>
-            <div class="display-value">@item.AverageHealingPerSecond.ToString("#,0.0")</div>
+        <div class="display-column">
+            @totalThreat(item)
+            @avgTPS(@item)
         </div>
-        <div class="display-group">
-            <div class="display-label">
-                Average TPS:</div>
-            <div class="display-value">@item.AverageThreatPerSecond.ToString("#,0.0")</div>
+        <div class="display-column">
+            @intervalDiv(@item)
+            @countDeflect(item)
+            @countParry(item)
         </div>
-        @report(item)
     </div>;
 
     Func<string, object> showButton =
-        @<input type="button" class="@item-show" value="Show Details" onclick="$('.@item').show();$('.@item-show').hide();" />;
+    @<input type="button" class="@item-show" value="Show Details" onclick="$('.@item').show();$('.@item-show').hide();"
+    />;
     Func<string, object> hideButton =
-        @<input type="button" class="@item-hide" value="Hide Details" onclick="$('.@item').hide();$('.@item-show').show();" />;
+    @<input type="button" class="@item-hide" value="Hide Details" onclick="$('.@item').hide();$('.@item-show').show();"
+    />;
 
 }
 <h2>
     Combat Report</h2>
-
-@showButton("all-combat-details")
-<div class="all-combat-details" style="display:none;">
-    @hideButton("all-combat-details")
-    @report(Model)
-</div>
+<a href="/">Parse another log...</a>
 <div id="combat-tabs">
     <ul>
         @foreach (var combat in Model.Combats)
@@ -94,45 +173,95 @@
     {
         var combatIndex = Model.Combats.IndexOf(combat) + 1;
         <div id="combat-@combatIndex">
-            @showButton("combat-details")
-            <div class="combat-details" style="display:none;">
-                @hideButton("combat-details")
-                @combatReport(combat)
-            </div>
-            <div id="character-tabs-@combatIndex">
-                <ul>
+            <div id="combat-@combatIndex-accordian">
+                <h3>
+                    <a href="#combat-details-@combatIndex">Combat Details</a></h3>
+                <div class="combat-details">
+                    @combatReport(combat)
+                </div>
+                <h3>
+                    <a href="#combat-details-@combatIndex">Ability Usage</a></h3>
+                @abilityReport(new Tuple<SWTOR.Parser.Domain.ILogMetrics, string, string>(combat, combatIndex.ToString(), ""))
+                <h3>
+                    <a href="#player-details-@combatIndex">Player Details</a></h3>
+                <div id="character-tabs-@combatIndex">
+                    <ul>
+                        @foreach (var charKey in combat.Characters.Keys)
+                        {
+                            var safeKey = charKey.Replace(":", "-").Replace(" ", "");
+                            <li><a href="#character-@combatIndex-@safeKey">@charKey</a></li>
+                        }
+                    </ul>
                     @foreach (var charKey in combat.Characters.Keys)
                     {
                         var safeKey = charKey.Replace(":", "-").Replace(" ", "");
-                        <li><a href="#character-@combatIndex-@safeKey">@charKey</a></li>
-                    }
-                </ul>
-                @foreach (var charKey in combat.Characters.Keys)
-                {
-                    var safeKey = charKey.Replace(":", "-").Replace(" ", "");
-                    var charData = combat.Characters[charKey];
-                    <div id="character-@combatIndex-@safeKey">
-                        <div id="st-tabs-@combatIndex-@safeKey">
-                            <ul>
-                                <li><a href="#source-@combatIndex-@safeKey">As Source</a></li>
-                                <li><a href="#target-@combatIndex-@safeKey">As Target</a></li>
-                            </ul>
-                            <div id="source-@combatIndex-@safeKey">@combatReport(charData.AsSource)</div>
-                            <div id="target-@combatIndex-@safeKey">@combatReport(charData.AsTarget)</div>
+                        var charData = combat.Characters[charKey];
+                        <div id="character-@combatIndex-@safeKey">
+                            <div id="st-tabs-@combatIndex-@safeKey">
+                                <ul>
+                                    <li><a href="#source-@combatIndex-@safeKey">Outgoing</a></li>
+                                    <li><a href="#target-@combatIndex-@safeKey">Incoming</a></li>
+                                </ul>
+                                <div id="source-@combatIndex-@safeKey">
+                                    <div id="character-accordian-@combatIndex-@safeKey-source">
+                                        <h3>
+                                            <a href="#combat-details-@combatIndex">Outgoing Combat Details</a></h3>
+                                        <div class="combat-details">
+                                            @combatReport(charData.AsSource)
+                                        </div>
+                                        <h3>
+                                            <a href="#combat-details-@combatIndex">Outgoing Ability Usage</a></h3>
+                                        @abilityReport(new Tuple<SWTOR.Parser.Domain.ILogMetrics, string, string>(charData.AsSource, combatIndex.ToString(), safeKey + "-source"))
+                                    </div>
+                                </div>
+                                <div id="target-@combatIndex-@safeKey">
+                                    <div id="character-accordian-@combatIndex-@safeKey-target">
+                                        <h3>
+                                            <a href="#combat-details-@combatIndex">Incoming Details</a></h3>
+                                        <div class="combat-details">
+                                            @combatReport(charData.AsTarget)
+                                        </div>
+                                        <h3>
+                                            <a href="#combat-details-@combatIndex">Incoming Ability Usage</a></h3>
+                                        @abilityReport(new Tuple<SWTOR.Parser.Domain.ILogMetrics, string, string>(charData.AsTarget, combatIndex.ToString(), safeKey + "-target"))
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $(function () { $("#st-tabs-@combatIndex-@safeKey").tabs(); }); 
+                            </script>
+                            <script>
+                                $(function () {
+                                    $("#character-accordian-@combatIndex-@safeKey-source").accordion({
+                                        autoHeight: false
+                                    });
+                                });
+                            </script>
+                            <script>
+                                $(function () {
+                                    $("#character-accordian-@combatIndex-@safeKey-target").accordion({
+                                        autoHeight: false
+                                    });
+                                });
+                            </script>
                         </div>
-                        <script>
-                            $(function () { $("#st-tabs-@combatIndex-@safeKey").tabs(); });
-                        </script>
-                    </div>
-                }
+                    }
+                </div>
+                <script>
+                    $(function () { $("#character-tabs-@combatIndex").tabs(); });
+                </script>
             </div>
-            <script>
-                $(function () { $("#character-tabs-@combatIndex").tabs(); });
-            </script>
         </div>
+        <script>
+            $(function () {
+                $("#combat-@combatIndex-accordian").accordion({
+                    autoHeight: false
+                });
+            });
+        </script>
 
     }
 </div>
 <script>
-    $(function () { $('#combat-tabs').tabs(); });
+    $(function () { $('#combat-tabs').tabs(); }); 
 </script>
