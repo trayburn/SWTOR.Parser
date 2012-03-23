@@ -188,13 +188,13 @@
                     <ul>
                         @foreach (var charKey in combat.Characters.Keys)
                         {
-                            var safeKey = charKey.Replace(":", "-").Replace(" ", "");
+                            var safeKey = charKey.Replace(":", "-").Replace(" ", "").Replace("'","");
                             <li><a href="#character-@combatIndex-@safeKey">@charKey</a></li>
                         }
                     </ul>
                     @foreach (var charKey in combat.Characters.Keys)
                     {
-                        var safeKey = charKey.Replace(":", "-").Replace(" ", "");
+                        var safeKey = charKey.Replace(":", "-").Replace(" ", "").Replace("'", "");
                         var charData = combat.Characters[charKey];
                         <div id="character-@combatIndex-@safeKey">
                             <div id="st-tabs-@combatIndex-@safeKey">
