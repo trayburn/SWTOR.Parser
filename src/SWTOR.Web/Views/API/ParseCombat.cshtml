@@ -1,28 +1,45 @@
 ﻿@model SWTOR.Parser.Domain.CombatLog
 @{
     ViewBag.Title = "Combat Report";
-        
+
     Func<SWTOR.Parser.Domain.ILogMetrics, object> report =
     @<div class="report">
         <div class="display-group">
             <div class="display-label">
                 Total Damage:</div>
-            <div class="display-value">@item.TotalDamage</div>
+            <div class="display-value">@item.TotalDamage.ToString("#,0")</div>
         </div>
         <div class="display-group">
             <div class="display-label">
                 Total Healing:</div>
-            <div class="display-value">@item.TotalHealing</div>
+            <div class="display-value">@item.TotalHealing.ToString("#,0")</div>
+        </div>
+        <div class="display-group">
+            <div class="display-label">
+                Total Threat:</div>
+            <div class="display-value">@item.TotalThreat.ToString("#,0")</div>
         </div>
         <div class="display-group">
             <div class="display-label">
                 # of Deflects:</div>
-            <div class="display-value">@item.CountOfDeflect</div>
+            <div class="display-value">@item.CountOfDeflect.ToString("#,0")</div>
         </div>
         <div class="display-group">
             <div class="display-label">
                 # of Parries:</div>
-            <div class="display-value">@item.CountOfParry</div>
+            <div class="display-value">@item.CountOfParry.ToString("#,0")</div>
+        </div>
+        <div class="abilities-used">
+            <h3>
+                Abilities Used</h3>
+            @foreach (var count in item.AbilityCounts)
+            {
+                <div class="display-group">
+                    <div class="display-label">
+                        @count.Name:</div>
+                    <div class="display-value">@count.Count.ToString("#,0")</div>
+                </div>
+            }
         </div>
     </div>;
 
@@ -31,17 +48,22 @@
         <div class="display-group">
             <div class="display-label">
                 Total Time (sec):</div>
-            <div class="display-value">@item.Interval</div>
+            <div class="display-value">@item.Interval.ToString("#,0")</div>
         </div>
         <div class="display-group">
             <div class="display-label">
                 Average DPS:</div>
-            <div class="display-value">@item.AverageDamagePerSecond</div>
+            <div class="display-value">@item.AverageDamagePerSecond.ToString("#,0.0")</div>
         </div>
         <div class="display-group">
             <div class="display-label">
                 Average HPS:</div>
-            <div class="display-value">@item.AverageHealingPerSecond</div>
+            <div class="display-value">@item.AverageHealingPerSecond.ToString("#,0.0")</div>
+        </div>
+        <div class="display-group">
+            <div class="display-label">
+                Average TPS:</div>
+            <div class="display-value">@item.AverageThreatPerSecond.ToString("#,0.0")</div>
         </div>
         @report(item)
     </div>;

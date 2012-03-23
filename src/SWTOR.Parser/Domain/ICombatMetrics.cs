@@ -9,5 +9,6 @@ namespace SWTOR.Parser.Domain
         int Interval { get; set; }
         double AverageDamagePerSecond { get; set; }
         double AverageHealingPerSecond { get; set; }
+        double AverageThreatPerSecond { get; set; }
     }
 }

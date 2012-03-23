@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Analyzer.cs" />
+    <Compile Include="Domain\AbilityCount.cs" />
     <Compile Include="Domain\CharacterData.cs" />
     <Compile Include="Domain\CombatData.cs" />
     <Compile Include="Domain\CombatLog.cs" />

@@ -127,6 +127,45 @@ namespace SWTOR.Parser.Tests.CombatParserTests
             mob = new Actor { name = "Soa", number = 836045448947788 };
         }
 
+        [TestMethod]
+        public void Given_One_Combat_When_Parse_Then_AbilityCounts_Populated()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Damage(mob, player, "Headbutt", 250, "energy").Tick()
+                .Damage(player, mob, "Junkpunch", 1000, "physical")
+                .Damage(mob, player, "Headbutt", 250, "energy").Tick()
+                .ExitCombat(player);
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(2, res.AbilityCounts[0].Count);
+            Assert.AreEqual("Headbutt", res.AbilityCounts[0].Name);
+            Assert.AreEqual(1, res.AbilityCounts[1].Count);
+            Assert.AreEqual("Junkpunch", res.AbilityCounts[1].Name);
+        }
+
+        [TestMethod]
+        public void Given_One_Combat_When_Parse_Then_Threat_Should_Be_Totalled()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Damage(mob, player, "Headbutt", 250, "energy").Tick()
+                .Damage(mob, player, "Headbutt", 250, "energy").Tick()
+                .ExitCombat(player);
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(500, res.TotalThreat);
+            Assert.AreEqual(500, res.Combats[0].TotalThreat);
+            Assert.AreEqual((double)500 / 3, res.Combats[0].AverageThreatPerSecond);
+        }
 
         [TestMethod]
         public void Given_One_Combat_When_Parse_Then_Characters_Player_AsTarget_Should_Be_Populated()

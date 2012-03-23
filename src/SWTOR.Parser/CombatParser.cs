@@ -47,14 +47,27 @@ namespace SWTOR.Parser
             data.Interval = Convert.ToInt32((log.EndTime() - log.StartTime()).TotalSeconds);
             data.AverageDamagePerSecond = (double)data.TotalDamage / data.Interval;
             data.AverageHealingPerSecond = (double)data.TotalHealing / data.Interval;
+            data.AverageThreatPerSecond = (double)data.TotalThreat / data.Interval;
         }
 
         private void LogAnalyzer(ILogMetrics data, IEnumerable<LogEntry> log)
         {
             data.TotalDamage = log.DamageEffects().Sum(m => m.result.amount);
             data.TotalHealing = log.HealingEffects().Sum(m => m.result.amount);
+            data.TotalThreat = log.ThreatEffects().Sum(m => m.threat);
             data.CountOfParry = log.ParryEffects().Count();
             data.CountOfDeflect = log.DeflectEffects().Count();
+
+            var abilityNames = log.Where(m => m.ability.name != "").Select(m => m.ability.name).Distinct();
+            foreach (var name in abilityNames)
+            {
+                var count = new AbilityCount();
+                data.AbilityCounts.Add(count);
+                count.Name = name;
+                count.Number = log.First(m => m.ability.name == name).ability.number;
+                count.Count = log.Count(m => m.ability.name == name);
+            }
+            data.AbilityCounts = data.AbilityCounts.OrderByDescending(m => m.Count).ThenBy(m => m.Name).ToList();
         }
 
         private CombatLog ParseCombatLog(List<LogEntry> log)

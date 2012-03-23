@@ -32,6 +32,11 @@ namespace SWTOR.Parser
             return log.Where(m => m.@event.name == "ApplyEffect" && m.effect.name == "Damage");
         }
 
+        public static IEnumerable<LogEntry> ThreatEffects(this IEnumerable<LogEntry> log)
+        {
+            return log.Where(m => m.threat > 0);
+        }
+
         public static IEnumerable<LogEntry> HealingEffects(this IEnumerable<LogEntry> log)
         {
             return log.Where(m => m.@event.name == "ApplyEffect" && m.effect.name == "Heal");
