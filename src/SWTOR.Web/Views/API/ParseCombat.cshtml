@@ -68,10 +68,20 @@
         @report(item)
     </div>;
 
+    Func<string, object> showButton =
+        @<input type="button" class="@item-show" value="Show Details" onclick="$('.@item').show();$('.@item-show').hide();" />;
+    Func<string, object> hideButton =
+        @<input type="button" class="@item-hide" value="Hide Details" onclick="$('.@item').hide();$('.@item-show').show();" />;
+
 }
 <h2>
     Combat Report</h2>
-@report(Model)
+
+@showButton("all-combat-details")
+<div class="all-combat-details" style="display:none;">
+    @hideButton("all-combat-details")
+    @report(Model)
+</div>
 <div id="combat-tabs">
     <ul>
         @foreach (var combat in Model.Combats)
@@ -84,7 +94,11 @@
     {
         var combatIndex = Model.Combats.IndexOf(combat) + 1;
         <div id="combat-@combatIndex">
-            @combatReport(combat)
+            @showButton("combat-details")
+            <div class="combat-details" style="display:none;">
+                @hideButton("combat-details")
+                @combatReport(combat)
+            </div>
             <div id="character-tabs-@combatIndex">
                 <ul>
                     @foreach (var charKey in combat.Characters.Keys)
