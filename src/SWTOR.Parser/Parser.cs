@@ -10,7 +10,7 @@ namespace SWTOR.Parser
         {
             if (rdr == null) throw new ArgumentNullException("rdr");
 
-            string line = null;
+            string line;
             int lineNumber = 0;
             var list = new List<LogEntry>();
 
@@ -18,7 +18,7 @@ namespace SWTOR.Parser
             {
                 lineNumber += 1;
                 var entry = new LogEntry();
-                string rest = null;
+                string rest;
 
                 try
                 {
@@ -183,7 +183,7 @@ namespace SWTOR.Parser
             return rest;
         }
 
-        private BetweenResult Between(char startChar, char endChar, string line)
+        private static BetweenResult Between(char startChar, char endChar, string line)
         {
             var result = new BetweenResult();
 

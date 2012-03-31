@@ -1,5 +1,6 @@
-.h1 SWTOR Combat Log Parser
-.h2 Depolyed at http://swtor.apphb.com
+SWTOR Combat Log Parser
+=======================
+Deployed at http://swtor.apphb.com
 
 This project has three portions:
 
