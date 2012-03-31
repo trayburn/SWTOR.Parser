@@ -1,7 +1,7 @@
 SWTOR Combat Log Parser
 =======================
 Deployed at http://swtor.apphb.com
-
+   
 This project has three portions:
 
 * Combat Parser website at http://swtor.apphb.com/
