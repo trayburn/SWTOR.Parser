@@ -697,5 +697,28 @@ namespace SWTOR.Parser.Tests.ParserTests
             Assert.Fail();
         }
     }
+
+    [TestClass]
+    public class OneRow_BadInputTests : BaseParserTest
+    {
+        public override void BuildTestString(StringBuilder bldr)
+        {
+            bldr.Append("abcd");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullReferenceException))]
+        public void Parse_Should_Throw_When_Bad_Input_Is_Received()
+        {
+            // Arrange
+
+            // Act
+            var list = target.Parse(rdr);
+
+            // Assert
+            Assert.IsNull(list);
+            Assert.Fail();
+        }
+    }
 }
 
