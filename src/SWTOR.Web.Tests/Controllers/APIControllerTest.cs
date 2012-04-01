@@ -13,7 +13,6 @@ using SWTOR.Parser.Domain;
 
 namespace SWTOR.Web.Controllers.Tests
 {
-
     [TestClass]
     public class APIControllerTest : BaseControllerTest<APIController>
     {

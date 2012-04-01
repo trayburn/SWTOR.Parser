@@ -125,8 +125,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\APIController.cs" />
-    <Compile Include="Controllers\CombatLogController.cs" />
+    <Compile Include="Controllers\CombatController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Data\IRepository.cs" />
+    <Compile Include="Data\Repository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

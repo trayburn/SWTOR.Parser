@@ -2,10 +2,12 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using SWTOR.Parser.Domain;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SWTOR.Parser
 {
-    public class CombatParser
+    public class CombatParser : ICombatParser
     {
         public CombatLog Parse(List<LogEntry> log)
         {

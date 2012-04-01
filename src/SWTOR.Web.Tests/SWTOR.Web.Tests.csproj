@@ -111,6 +111,7 @@
     <Compile Include="BaseControllerTest.cs" />
     <Compile Include="Controllers\APIControllerTest.cs" />
     <Compile Include="BaseTest.cs" />
+    <Compile Include="Controllers\CombatControllerTest.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
