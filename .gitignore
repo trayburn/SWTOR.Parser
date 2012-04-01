@@ -1,6 +1,7 @@
 bin
 obj
 build
+src/packages/RavenDB.*/server/Data
 *.user
 *.cache
 *.suo
