@@ -41,7 +41,7 @@ namespace SWTOR.Parser
             var allIntervals = list.Select(m => m.interval).Distinct().OrderBy(m => m).ToList();
 
             // Fill in missing intervals
-            var lastInterval = allIntervals.First();
+            var lastInterval = allIntervals.FirstOrDefault();
             foreach (var interval in allIntervals.OrderBy(m => m))
             {
                 int diff = interval - lastInterval;
