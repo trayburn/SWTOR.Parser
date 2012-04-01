@@ -42,18 +42,19 @@
             <tbody>
                 @foreach (var count in item.Item1.AbilityCounts)
                 {
+                    // Do not put commas in these numbers, they won't sort right!
                     <tr>
                         <td>@count.Name
                         </td>
-                        <td>@count.Count.ToString("#,0")
+                        <td>@count.Count.ToString("0")
                         </td>
-                        <td>@count.CountOfCriticals.ToString("#,0")
+                        <td>@count.CountOfCriticals.ToString("0")
                         </td>
-                        <td>@count.AverageDamage.ToString("#,0.0")
+                        <td>@count.AverageDamage.ToString("0.0")
                         </td>
-                        <td>@count.MaximumDamage.ToString("#,0")
+                        <td>@count.MaximumDamage.ToString("0")
                         </td>
-                        <td>@count.MinimumDamage.ToString("#,0")
+                        <td>@count.MinimumDamage.ToString("0")
                         </td>
                     </tr>
                 }
