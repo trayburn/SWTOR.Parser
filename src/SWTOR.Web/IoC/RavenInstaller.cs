@@ -17,7 +17,6 @@ namespace SWTOR.Web.IoC
 
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            IDocumentStore dStore = null;
 #if DEBUG
             // Use the Embeddable RavenDB when running locally
             container.Register(
