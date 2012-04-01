@@ -23,6 +23,20 @@ namespace SWTOR.Parser
             return cLog;
         }
 
+        public void Clean(CombatLog log)
+        {
+            // Clear log properties so they won't get stores/used later.
+            foreach (CombatData combat in log.Combats)
+            {
+                combat.Log.Clear();
+                foreach (CharacterData value in combat.Characters.Values)
+                {
+                    value.AsSource.Log.Clear();
+                    value.AsTarget.Log.Clear();
+                }
+            }
+        }
+
         private void CharacterAnalyzer(CombatData combat, List<LogEntry> log)
         {
             var allSources = log.DistinctSources();

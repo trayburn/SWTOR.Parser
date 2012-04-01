@@ -16,6 +16,29 @@ namespace SWTOR.Parser.Tests.CombatParserTests
         }
 
         [TestMethod]
+        public void When_Clean_Is_Called_Excess_Log_Data_Should_Be_Gone()
+        {
+            // Arrange
+            var res = target.Parse(log);
+            // Check there is data
+            Assert.AreNotEqual(0, res.Combats[0].Log.Count, "There should be log data here.");
+
+            // Act
+            target.Clean(res);
+
+            // Assert
+            foreach (var combat in res.Combats)
+            {
+                Assert.AreEqual(0, combat.Log.Count);
+                foreach (CharacterData value in combat.Characters.Values)
+                {
+                    Assert.AreEqual(0, value.AsTarget.Log.Count);
+                    Assert.AreEqual(0, value.AsSource.Log.Count);
+                }
+            }
+        }
+
+        [TestMethod]
         public void For_Combat_One_Ensure_AverageDPS()
         {
             // Arrange

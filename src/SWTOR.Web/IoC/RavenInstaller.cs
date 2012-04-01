@@ -24,11 +24,16 @@ namespace SWTOR.Web.IoC
                 {
                     var docStore = new EmbeddableDocumentStore()
                     {
-                        DataDirectory = "App_Data"
+                        DataDirectory = "App_Data",
+                        Conventions =
+                        {
+                            DefaultQueryingConsistency = ConsistencyOptions.QueryYourWrites
+                        }
                     };
                     NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8888);
                     docStore.UseEmbeddedHttpServer = true;
                     docStore.Configuration.Port = 8888;
+                    docStore.Initialize();
                     return docStore;
                 }).LifeStyle.Singleton
                 );
@@ -39,7 +44,11 @@ namespace SWTOR.Web.IoC
                 {
                     return new DocumentStore()
                     {
-                        Url = ConfigurationManager.AppSettings["RAVENHQ_CONNECTION_STRING"]
+                        ConnectionStringName = "RAVENHQ_CONNECTION_STRING",
+                        Conventions =
+                        {
+                            DefaultQueryingConsistency = ConsistencyOptions.QueryYourWrites
+                        }
                     }.Initialize();
                 }).LifeStyle.Singleton
                 );

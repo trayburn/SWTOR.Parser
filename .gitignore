@@ -2,6 +2,7 @@ bin
 obj
 build
 src/packages/RavenDB.*/server/Data
+App_Data
 *.user
 *.cache
 *.suo
