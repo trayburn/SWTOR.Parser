@@ -12,7 +12,7 @@ namespace SWTOR.Parser.Domain
             AbilityCounts = new List<AbilityMetrics>();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public List<CombatData> Combats { get; private set; }
 
         public int TotalDamage { get; set; }
