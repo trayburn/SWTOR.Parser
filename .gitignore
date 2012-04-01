@@ -8,3 +8,4 @@ App_Data
 *.suo
 Logs
 TestResult.xml
+TestResults

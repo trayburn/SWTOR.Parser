@@ -5,23 +5,23 @@ using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SWTOR.Web.Controllers;
+using SWTOR.Web.Tests;
 
 namespace SWTOR.Web.Controllers.Tests
 {
     [TestClass]
-    public class HomeControllerTest
+    public class HomeControllerTest : BaseControllerTest<HomeController>
     {
         [TestMethod]
         public void Index()
         {
             // Arrange
-            HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            var result = controller.Index();
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.IsNotNull(result as ViewResult);
             
         }
     }

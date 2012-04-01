@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using SWTOR.Parser.Domain;
+using System.IO;
 
 namespace SWTOR.Parser
 {
-    public class Parser
+    public class Parser : IParser
     {
         public List<LogEntry> Parse(System.IO.TextReader rdr)
         {

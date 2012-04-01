@@ -71,9 +71,12 @@
     <Compile Include="Domain\DpsPerCharacter.cs" />
     <Compile Include="Domain\ICombatMetrics.cs" />
     <Compile Include="Domain\ILogMetrics.cs" />
+    <Compile Include="IParser.cs" />
+    <Compile Include="IStringParser.cs" />
     <Compile Include="LogQueryExtensions.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Domain\Result.cs" />
+    <Compile Include="StringParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

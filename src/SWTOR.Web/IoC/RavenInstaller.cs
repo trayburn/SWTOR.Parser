@@ -9,12 +9,12 @@ using Raven.Client.Document;
 using System.Configuration;
 using Raven.Client.Embedded;
 using Raven.Database.Server;
+using SWTOR.Parser;
 
 namespace SWTOR.Web.IoC
 {
     public class RavenInstaller : IWindsorInstaller
     {
-
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
 #if DEBUG
