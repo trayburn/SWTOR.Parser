@@ -7,6 +7,8 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Raven.Client;
 using Raven.Client.Document;
 using System.Configuration;
+using Raven.Client.Embedded;
+using Raven.Database.Server;
 
 namespace SWTOR.Web.IoC
 {
@@ -17,30 +19,34 @@ namespace SWTOR.Web.IoC
         {
             IDocumentStore dStore = null;
 #if DEBUG
-                // Use the Embeddable RavenDB when running locally
-                var documentStore = new EmbeddableDocumentStore()
+            // Use the Embeddable RavenDB when running locally
+            container.Register(
+                Component.For<IDocumentStore>().UsingFactoryMethod((k, c) =>
                 {
-                    DataDirectory = "App_Data"
-                };
-
-                NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8888);
-                documentStore.UseEmbeddedHttpServer = true;
-                documentStore.Configuration.Port = 8888;
-                dStore = documentStore;
+                    var docStore = new EmbeddableDocumentStore()
+                    {
+                        DataDirectory = "App_Data"
+                    };
+                    NonAdminHttp.EnsureCanListenToWhenInNonAdminContext(8888);
+                    docStore.UseEmbeddedHttpServer = true;
+                    docStore.Configuration.Port = 8888;
+                    return docStore;
+                }).LifeStyle.Singleton
+                );
 #endif
 #if !DEBUG
-            var documentStore = new DocumentStore()
-            {
-                 Url = ConfigurationManager.AppSettings["RAVENHQ_CONNECTION_STRING"]
-            };
-            dStore = documentStore;
+            container.Register(
+                Component.For<IDocumentStore>().UsingFactoryMethod((k, c) =>
+                {
+                    return new DocumentStore()
+                    {
+                        Url = ConfigurationManager.AppSettings["RAVENHQ_CONNECTION_STRING"]
+                    }.Initialize();
+                }).LifeStyle.Singleton
+                );
 #endif
 
-            dStore.Initialize();
-
             container.Register(
-                Component.For<IDocumentStore>()
-                    .Instance(dStore).LifeStyle.Singleton,
                 Component.For<IDocumentSession>()
                     .UsingFactoryMethod(k => k.Resolve<IDocumentStore>().OpenSession())
                     .LifestylePerWebRequest(),
