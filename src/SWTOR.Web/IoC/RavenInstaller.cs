@@ -44,7 +44,7 @@ namespace SWTOR.Web.IoC
                 {
                     return new DocumentStore()
                     {
-                        ConnectionStringName = "RAVENHQ_CONNECTION_STRING",
+                        ConnectionStringName = "RavenDB",
                         Conventions =
                         {
                             DefaultQueryingConsistency = ConsistencyOptions.QueryYourWrites
