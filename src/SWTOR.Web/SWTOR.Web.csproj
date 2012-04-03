@@ -43,6 +43,12 @@
     <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.3.0.0.4001\lib\net40-client\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Facilities.Logging">
+      <HintPath>..\packages\Castle.LoggingFacility.3.0.0.4001\lib\net40\Castle.Facilities.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Services.Logging.Log4netIntegration">
+      <HintPath>..\packages\Castle.Core-log4net.3.0.0.4003\lib\net40\Castle.Services.Logging.Log4netIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
     </Reference>
@@ -54,6 +60,9 @@
     </Reference>
     <Reference Include="ICSharpCode.NRefactory">
       <HintPath>..\packages\RavenDB-Embedded.1.0.701\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net">
       <HintPath>..\packages\RavenDB-Embedded.1.0.701\lib\net40\Lucene.Net.dll</HintPath>
@@ -126,13 +135,16 @@
   <ItemGroup>
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\CombatController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Data\IRepository.cs" />
     <Compile Include="Data\Repository.cs" />
+    <Compile Include="Filters\ErrorLoggerAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IoC\ControllersInstaller.cs" />
+    <Compile Include="IoC\LoggingInstaller.cs" />
     <Compile Include="IoC\ParserInstaller.cs" />
     <Compile Include="IoC\RavenInstaller.cs" />
     <Compile Include="IoC\WindsorControllerFactory.cs" />

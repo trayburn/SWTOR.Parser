@@ -7,6 +7,9 @@ using System.Web.Routing;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
 using SWTOR.Web.IoC;
+using SWTOR.Web.Filters;
+using Castle.Core.Logging;
+using System.Configuration;
 
 namespace SWTOR.Web
 {
@@ -15,9 +18,11 @@ namespace SWTOR.Web
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static IWindsorContainer container;
+
         private static void BootstrapContainer()
         {
-            var container = new WindsorContainer();     // Create a container to hold the dependencies
+            container = new WindsorContainer();     // Create a container to hold the dependencies
             var controllerFactory = new WindsorControllerFactory(container.Kernel);     // Create a new instance
             ControllerBuilder.Current.SetControllerFactory(controllerFactory);          // Use my factory instead of default
 
@@ -48,10 +53,18 @@ namespace SWTOR.Web
         protected void Application_Start()
         {
             BootstrapContainer();
+            LogConnectionInfo();
             AreaRegistration.RegisterAllAreas();
+
+            GlobalFilters.Filters.Add(container.Resolve<ErrorLoggerAttribute>());
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+        }
+        private void LogConnectionInfo()
+        {
+            var logger = MvcApplication.container.Resolve<ILogger>();
+            logger.InfoFormat("Raven Connection Info : {0}", ConfigurationManager.ConnectionStrings["RavenDB"].ConnectionString);
         }
     }
 }

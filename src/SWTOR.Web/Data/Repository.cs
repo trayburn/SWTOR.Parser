@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Raven.Client;
+using Castle.Core.Logging;
 
 namespace SWTOR.Web.Data
 {
     public class Repository<T> : IRepository<T> where T : class
     {
         private IDocumentSession session;
+        public ILogger Logger;
 
         public Repository(IDocumentSession session)
         {
             this.session = session;
+            this.Logger = NullLogger.Instance;
         }
 
         public IQueryable<T> Query()

@@ -14,6 +14,7 @@ using Raven.Client;
 using Raven.Database.Server;
 using Raven.Client.Document;
 using System.Configuration;
+using Castle.Facilities.Logging;
 
 namespace SWTOR.Web.IoC
 {

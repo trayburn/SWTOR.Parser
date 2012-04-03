@@ -6,10 +6,11 @@ using System.Web.Mvc;
 using SWTOR.Parser;
 using System.IO;
 using System.Web.Script.Serialization;
+using Castle.Core.Logging;
 
 namespace SWTOR.Web.Controllers
 {
-    public class APIController : Controller
+    public class APIController : ControllerBase
     {
         private readonly IStringParser parser;
 
@@ -21,6 +22,7 @@ namespace SWTOR.Web.Controllers
         [HttpPost]
         public ActionResult ParseText(string combatLog)
         {
+            Logger.DebugFormat("ParseText called with length : {0}", combatLog.Length);
             object returnData = parser.ParseString(combatLog);
 
             var ser = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue };

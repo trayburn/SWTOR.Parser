@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace SWTOR.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
         //
         // GET: /Home/

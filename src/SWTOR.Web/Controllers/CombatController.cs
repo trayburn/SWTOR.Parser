@@ -13,7 +13,7 @@ using SWTOR.Web.Data;
 
 namespace SWTOR.Web.Controllers
 {
-    public class CombatController : Controller
+    public class CombatController : ControllerBase
     {
         private IRepository<CombatLog> repo;
         private IHashCreator hasher;
@@ -35,8 +35,11 @@ namespace SWTOR.Web.Controllers
 
             var model = repo.Query().FirstOrDefault(m => m.Id == hash);
             if (model != null)
+            {
                 return RedirectToAction("Log", new { id = model.Id });
+            }
 
+            Logger.InfoFormat("Log stored for the first time : {0}", hash);
             var log = parser.ParseString(combatLog);
             model = combatParser.Parse(log);
 
@@ -51,6 +54,7 @@ namespace SWTOR.Web.Controllers
         [HttpGet]
         public ActionResult Log(string id)
         {
+            Logger.InfoFormat("Log retrieved : {0}", id);
             var model = repo.Query().FirstOrDefault(m => m.Id == id);
             if (model != null)
                 return View(model);
