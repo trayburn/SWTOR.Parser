@@ -46,8 +46,8 @@
     <Reference Include="Castle.Facilities.Logging">
       <HintPath>..\packages\Castle.LoggingFacility.3.0.0.4001\lib\net40\Castle.Facilities.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Castle.Services.Logging.Log4netIntegration">
-      <HintPath>..\packages\Castle.Core-log4net.3.0.0.4003\lib\net40\Castle.Services.Logging.Log4netIntegration.dll</HintPath>
+    <Reference Include="Castle.Services.Logging.NLogIntegration">
+      <HintPath>..\packages\Castle.Core-NLog.3.0.0.4001\lib\net40-client\Castle.Services.Logging.NLogIntegration.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Windsor">
       <HintPath>..\packages\Castle.Windsor.3.0.0.4001\lib\net40\Castle.Windsor.dll</HintPath>
@@ -61,8 +61,12 @@
     <Reference Include="ICSharpCode.NRefactory">
       <HintPath>..\packages\RavenDB-Embedded.1.0.701\lib\net40\ICSharpCode.NRefactory.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    <Reference Include="le_nlog">
+      <HintPath>..\packages\le_nlog.1.5\lib\4.0\le_nlog.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Lucene.Net">
       <HintPath>..\packages\RavenDB-Embedded.1.0.701\lib\net40\Lucene.Net.dll</HintPath>

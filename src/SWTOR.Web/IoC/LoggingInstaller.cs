@@ -13,7 +13,7 @@ namespace SWTOR.Web.IoC
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.AddFacility<LoggingFacility>(c => c.UseLog4Net().WithAppConfig());
+            container.AddFacility<LoggingFacility>(c => c.UseNLog().WithAppConfig());
             container.Register(Component.For<ErrorLoggerAttribute>());
         }
     }
