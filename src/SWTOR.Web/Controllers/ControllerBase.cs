@@ -8,13 +8,11 @@ namespace SWTOR.Web.Controllers
 {
     public abstract class ControllerBase : Controller
     {
-        private ILogger logger;
-
         public ControllerBase()
         {
-            logger = NullLogger.Instance;
+            Logger = NullLogger.Instance;
         }
 
-        public ILogger Logger { get; set; }
+        public ILogger Logger { get; private set; }
     }
 }
