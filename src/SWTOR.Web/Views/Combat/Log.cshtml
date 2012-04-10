@@ -37,10 +37,28 @@
                     <th>
                         Min. Dmg.
                     </th>
+                    <th>
+                        Avg. Heal
+                    </th>
+                    <th>
+                        Max. Heal
+                    </th>
+                    <th>
+                        Min. Heal
+                    </th>
+                    <th>
+                        Avg. Threat
+                    </th>
+                    <th>
+                        Max. Threat
+                    </th>
+                    <th>
+                        Min. Threat
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var count in item.Item1.AbilityCounts)
+                @foreach (var count in item.Item1.AbilityMetrics)
                 {
                     // Do not put commas in these numbers, they won't sort right!
                     <tr>
@@ -55,6 +73,18 @@
                         <td>@count.MaximumDamage.ToString("0")
                         </td>
                         <td>@count.MinimumDamage.ToString("0")
+                        </td>
+                        <td>@count.AverageHealing.ToString("0.0")
+                        </td>
+                        <td>@count.MaximumHealing.ToString("0")
+                        </td>
+                        <td>@count.MinimumHealing.ToString("0")
+                        </td>
+                        <td>@count.AverageThreat.ToString("0.0")
+                        </td>
+                        <td>@count.MaximumThreat.ToString("0")
+                        </td>
+                        <td>@count.MinimumThreat.ToString("0")
                         </td>
                     </tr>
                 }
