@@ -7,6 +7,13 @@ namespace SWTOR.Parser
 {
     public static class LogQueryExtensions
     {
+        public static U IfEmpty<T,U>(this IEnumerable<T> query, U defaultValue, Func<IEnumerable<T>,U> calculation)
+        {
+            if (query.Count() == 0)
+                return defaultValue;
+            else return calculation.Invoke(query);
+        }
+
         public static IEnumerable<string> DistinctSources(this IEnumerable<LogEntry> log)
         {
             return log.Where(m => m.source.name != "").Select(m => m.source.name).Distinct();

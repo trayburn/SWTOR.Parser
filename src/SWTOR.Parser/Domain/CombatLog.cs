@@ -9,7 +9,7 @@ namespace SWTOR.Parser.Domain
         public CombatLog()
         {
             Combats = new List<CombatData>();
-            AbilityCounts = new List<AbilityMetrics>();
+            AbilityMetrics = new List<AbilityMetrics>();
         }
 
         public string Id { get; set; }
@@ -20,6 +20,6 @@ namespace SWTOR.Parser.Domain
         public int TotalThreat { get; set; }
         public int CountOfParry { get; set; }
         public int CountOfDeflect { get; set; }
-        public List<AbilityMetrics> AbilityCounts { get; set; }
+        public List<AbilityMetrics> AbilityMetrics { get; set; }
     }
 }

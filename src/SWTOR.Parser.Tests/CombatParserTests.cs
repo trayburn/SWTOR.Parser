@@ -151,6 +151,90 @@ namespace SWTOR.Parser.Tests.CombatParserTests
         }
 
         [TestMethod]
+        public void Given_One_Combat_When_Parse_Then_Threat_In_AbilityCounts()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Heal(player, player, "SmallHeal", 250).Tick()
+                .Heal(player, player, "BigHeal", 2000).Tick()
+                .Heal(player, player, "SmallHeal", 750)
+                .ExitCombat(player);
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(2, res.AbilityMetrics[0].Count);
+            Assert.AreEqual("SmallHeal", res.AbilityMetrics[0].Name);
+            Assert.AreEqual(500.0, res.AbilityMetrics[0].AverageThreat);
+            Assert.AreEqual(250, res.AbilityMetrics[0].MinimumThreat);
+            Assert.AreEqual(750, res.AbilityMetrics[0].MaximumThreat);
+
+            Assert.AreEqual(1, res.AbilityMetrics[1].Count);
+            Assert.AreEqual("BigHeal", res.AbilityMetrics[1].Name);
+            Assert.AreEqual(2000.00, res.AbilityMetrics[1].AverageThreat);
+            Assert.AreEqual(2000, res.AbilityMetrics[1].MinimumThreat);
+            Assert.AreEqual(2000, res.AbilityMetrics[1].MaximumThreat);
+        }
+        [TestMethod]
+        public void Given_One_Combat_When_Parse_Then_Healing_In_AbilityCounts()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Heal(player, player, "SmallHeal", 250).Tick()
+                .Heal(player, player, "BigHeal", 2000).Tick()
+                .Heal(player, player, "SmallHeal", 750)
+                .ExitCombat(player);
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(2, res.AbilityMetrics[0].Count);
+            Assert.AreEqual("SmallHeal", res.AbilityMetrics[0].Name);
+            Assert.AreEqual(500.0, res.AbilityMetrics[0].AverageHealing);
+            Assert.AreEqual(250, res.AbilityMetrics[0].MinimumHealing);
+            Assert.AreEqual(750, res.AbilityMetrics[0].MaximumHealing);
+
+            Assert.AreEqual(1, res.AbilityMetrics[1].Count);
+            Assert.AreEqual("BigHeal", res.AbilityMetrics[1].Name);
+            Assert.AreEqual(2000.00, res.AbilityMetrics[1].AverageHealing);
+            Assert.AreEqual(2000, res.AbilityMetrics[1].MinimumHealing);
+            Assert.AreEqual(2000, res.AbilityMetrics[1].MaximumHealing);
+        }
+
+        [TestMethod]
+        public void Bug_Counting_Healing_As_Damage_In_AbilityCounts()
+        {
+            // Arrange
+            h.EnterCombat(player).Tick()
+                .Heal(mob,mob,"Headbutt",1002).Tick()
+                .Damage(mob, player, "Headbutt", 150, "energy").Tick()
+                .Damage(player, mob, "Junkpunch", 1000, "physical")
+                .Damage(mob, player, "Headbutt", 450, "energy", true).Tick()
+                .ExitCombat(player);
+
+
+            // Act
+            var res = target.Parse(log);
+
+            // Assert
+            Assert.AreEqual(3, res.AbilityMetrics[0].Count);
+            Assert.AreEqual("Headbutt", res.AbilityMetrics[0].Name);
+            Assert.AreEqual(300.0, res.AbilityMetrics[0].AverageDamage);
+            Assert.AreEqual(150, res.AbilityMetrics[0].MinimumDamage);
+            Assert.AreEqual(450, res.AbilityMetrics[0].MaximumDamage);
+            Assert.AreEqual(1, res.AbilityMetrics[0].CountOfCriticals);
+
+            Assert.AreEqual(1, res.AbilityMetrics[1].Count);
+            Assert.AreEqual("Junkpunch", res.AbilityMetrics[1].Name);
+            Assert.AreEqual(1000.00, res.AbilityMetrics[1].AverageDamage);
+            Assert.AreEqual(1000, res.AbilityMetrics[1].MinimumDamage);
+            Assert.AreEqual(1000, res.AbilityMetrics[1].MaximumDamage);
+            Assert.AreEqual(0, res.AbilityMetrics[1].CountOfCriticals);
+        }
+
+        [TestMethod]
         public void Given_One_Combat_When_Parse_Then_AbilityCounts_Populated()
         {
             // Arrange
@@ -165,19 +249,19 @@ namespace SWTOR.Parser.Tests.CombatParserTests
             var res = target.Parse(log);
 
             // Assert
-            Assert.AreEqual(2, res.AbilityCounts[0].Count);
-            Assert.AreEqual("Headbutt", res.AbilityCounts[0].Name);
-            Assert.AreEqual(300.0, res.AbilityCounts[0].AverageDamage);
-            Assert.AreEqual(150, res.AbilityCounts[0].MinimumDamage);
-            Assert.AreEqual(450, res.AbilityCounts[0].MaximumDamage);
-            Assert.AreEqual(1, res.AbilityCounts[0].CountOfCriticals);
+            Assert.AreEqual(2, res.AbilityMetrics[0].Count);
+            Assert.AreEqual("Headbutt", res.AbilityMetrics[0].Name);
+            Assert.AreEqual(300.0, res.AbilityMetrics[0].AverageDamage);
+            Assert.AreEqual(150, res.AbilityMetrics[0].MinimumDamage);
+            Assert.AreEqual(450, res.AbilityMetrics[0].MaximumDamage);
+            Assert.AreEqual(1, res.AbilityMetrics[0].CountOfCriticals);
 
-            Assert.AreEqual(1, res.AbilityCounts[1].Count);
-            Assert.AreEqual("Junkpunch", res.AbilityCounts[1].Name);
-            Assert.AreEqual(1000.00, res.AbilityCounts[1].AverageDamage);
-            Assert.AreEqual(1000, res.AbilityCounts[1].MinimumDamage);
-            Assert.AreEqual(1000, res.AbilityCounts[1].MaximumDamage);
-            Assert.AreEqual(0, res.AbilityCounts[1].CountOfCriticals);
+            Assert.AreEqual(1, res.AbilityMetrics[1].Count);
+            Assert.AreEqual("Junkpunch", res.AbilityMetrics[1].Name);
+            Assert.AreEqual(1000.00, res.AbilityMetrics[1].AverageDamage);
+            Assert.AreEqual(1000, res.AbilityMetrics[1].MinimumDamage);
+            Assert.AreEqual(1000, res.AbilityMetrics[1].MaximumDamage);
+            Assert.AreEqual(0, res.AbilityMetrics[1].CountOfCriticals);
         }
 
         [TestMethod]
@@ -458,7 +542,8 @@ namespace SWTOR.Parser.Tests.CombatParserTests
                 {
                     number = 836045448940874,
                     amount = amount
-                }
+                },
+                threat = amount
             });
 
             return this;

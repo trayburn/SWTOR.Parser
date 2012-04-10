@@ -82,18 +82,34 @@ namespace SWTOR.Parser
             var abilityNames = log.Where(m => m.ability.name != "").Select(m => m.ability.name).Distinct();
             foreach (var name in abilityNames)
             {
-                var count = new AbilityMetrics();
+                var metrics = new AbilityMetrics();
                 var abilityLog = log.Where(m => m.ability.name == name);
-                data.AbilityCounts.Add(count);
-                count.Name = name;
-                count.Number = abilityLog.First().ability.number;
-                count.Count = abilityLog.Count();
-                count.MaximumDamage = abilityLog.Max(m => m.result.amount);
-                count.MinimumDamage = abilityLog.Min(m => m.result.amount);
-                count.AverageDamage = abilityLog.Average(m => m.result.amount);
-                count.CountOfCriticals = abilityLog.Where(m => m.result.isCritical).Count();
+
+                var damageLog = abilityLog.DamageEffects();
+                var healingLog = abilityLog.HealingEffects();
+                var threatLog = abilityLog.ThreatEffects();
+
+                data.AbilityMetrics.Add(metrics);
+
+                metrics.Name = name;
+                metrics.Number = abilityLog.First().ability.number;
+                metrics.Count = abilityLog.Count();
+                
+                metrics.MaximumDamage = damageLog.IfEmpty(0, l => l.Max(m => m.result.amount));
+                metrics.MinimumDamage = damageLog.IfEmpty(0, l => l.Min(m => m.result.amount));
+                metrics.AverageDamage = damageLog.IfEmpty(0, l => l.Average(m => m.result.amount));
+
+                metrics.MaximumHealing = healingLog.IfEmpty(0, l => l.Max(m => m.result.amount));
+                metrics.MinimumHealing = healingLog.IfEmpty(0, l => l.Min(m => m.result.amount));
+                metrics.AverageHealing = healingLog.IfEmpty(0, l => l.Average(m => m.result.amount));
+
+                metrics.MaximumThreat = threatLog.IfEmpty(0, l => l.Max(m => m.result.amount));
+                metrics.MinimumThreat = threatLog.IfEmpty(0, l => l.Min(m => m.result.amount));
+                metrics.AverageThreat = threatLog.IfEmpty(0, l => l.Average(m => m.result.amount));
+
+                metrics.CountOfCriticals = abilityLog.Where(m => m.result.isCritical).Count();
             }
-            data.AbilityCounts = data.AbilityCounts.OrderByDescending(m => m.Count).ThenBy(m => m.Name).ToList();
+            data.AbilityMetrics = data.AbilityMetrics.OrderByDescending(m => m.Count).ThenBy(m => m.Name).ToList();
         }
 
         private CombatLog ParseCombatLog(List<LogEntry> log)

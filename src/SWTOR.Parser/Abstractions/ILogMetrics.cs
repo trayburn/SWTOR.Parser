@@ -6,7 +6,7 @@ namespace SWTOR.Parser.Domain
 {
     public interface ILogMetrics
     {
-        List<AbilityMetrics> AbilityCounts { get; set; }
+        List<AbilityMetrics> AbilityMetrics { get; set; }
         int TotalDamage { get; set; }
         int TotalHealing { get; set; }
         int TotalThreat { get; set; }
