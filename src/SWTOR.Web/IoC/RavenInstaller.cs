@@ -36,7 +36,7 @@ namespace SWTOR.Web.IoC
                     docStore.Configuration.Port = 8888;
                     docStore.Initialize();
                     return docStore;
-                }).LifeStyle.PerWebRequest
+                }).LifeStyle.Transient
                 );
 #endif
 #if !DEBUG
@@ -51,7 +51,7 @@ namespace SWTOR.Web.IoC
                             DefaultQueryingConsistency = ConsistencyOptions.QueryYourWrites
                         }
                     }.Initialize();
-                }).LifeStyle.PerWebRequest
+                }).LifeStyle.Transient
                 );
 #endif
 
