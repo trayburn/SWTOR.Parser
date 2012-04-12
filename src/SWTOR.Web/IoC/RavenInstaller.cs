@@ -58,7 +58,7 @@ namespace SWTOR.Web.IoC
             container.Register(
                 Component.For<IDocumentSession>()
                     .UsingFactoryMethod(k => k.Resolve<IDocumentStore>().OpenSession())
-                    .LifestylePerWebRequest(),
+                    .LifestyleTransient(),
                 Component.For(typeof(IRepository<>)).ImplementedBy(typeof(Repository<>))
             );
         }

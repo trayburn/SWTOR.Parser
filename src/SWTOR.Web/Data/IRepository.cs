@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SWTOR.Web.Data
 {
-    public interface IRepository<T>
+    public interface IRepository<T> : IDisposable
             where T : class
     {
         IQueryable<T> Query();

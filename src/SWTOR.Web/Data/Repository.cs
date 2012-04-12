@@ -38,5 +38,10 @@ namespace SWTOR.Web.Data
         {
             session.SaveChanges();
         }
+
+        public void Dispose()
+        {
+            session.Dispose();
+        }
     }
 }
