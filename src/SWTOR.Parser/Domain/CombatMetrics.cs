@@ -21,7 +21,19 @@ namespace SWTOR.Parser.Domain
         public int CountOfDeflect { get; set; }
         public List<AbilityMetrics> AbilityMetrics { get; set; }
 
-        public int Interval { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public TimeSpan Interval 
+        {
+            get 
+            {
+                if (StartTime != null && EndTime != null)
+                    return EndTime - StartTime;
+
+                return TimeSpan.Zero;
+            }
+        }
+
         public double AverageDamagePerSecond { get; set; }
         public double AverageHealingPerSecond { get; set; }
         public double AverageThreatPerSecond { get; set; }

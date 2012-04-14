@@ -124,8 +124,8 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/17/2012 19:48:55] [@Invi] [@Argorash] " + 
-                "[Assault {898601647603712}] " + 
+            bldr.AppendLine("[16:17:36.125] [@Rivder] [Krayt Street Thrasher {670156632096768}] " + 
+                "[Ravage {1261367470325760}] " + 
                 "[ApplyEffect {836045448945477}: Damage {836045448945501}] (0 -parry {836045448945503}) <1>");
         }
 
@@ -141,13 +141,14 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 17, 19, 48, 55, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Invi", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 16, 17, 36, 125, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Rivder", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Argorash", entry.target.name);
-            Assert.AreEqual(true, entry.target.isPlayer);
-            Assert.AreEqual("Assault", entry.ability.name);
-            Assert.AreEqual(898601647603712, entry.ability.number);
+            Assert.AreEqual("Krayt Street Thrasher", entry.target.name);
+            Assert.AreEqual(670156632096768, entry.target.number);
+            Assert.AreEqual(false, entry.target.isPlayer);
+            Assert.AreEqual("Ravage", entry.ability.name);
+            Assert.AreEqual(1261367470325760, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
             Assert.AreEqual("Damage", entry.effect.name);
@@ -166,7 +167,7 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/17/2012 19:45:01] [@Argorash] [@Argorash] " + 
+            bldr.AppendLine("[16:37:43.177] [@Rivder] [@Rivder] " +
                 "[Heroic Moment: Call on the Force {1412666283261952}] " + 
                 "[ApplyEffect {836045448945477}: Heroic Moment: Call on the Force {1412666283261952}] ()");
         }
@@ -182,10 +183,10 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 17, 19, 45, 1, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Argorash", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 16, 37, 43, 177, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Rivder", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Argorash", entry.target.name);
+            Assert.AreEqual("Rivder", entry.target.name);
             Assert.AreEqual(true, entry.target.isPlayer);
             Assert.AreEqual("Heroic Moment: Call on the Force", entry.ability.name);
             Assert.AreEqual(1412666283261952, entry.ability.number);
@@ -206,9 +207,9 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/01/2012 14:47:11] [@Twos] [@Khantni] " + 
-                "[Affliction (Force) {808192586023173}] " + 
-                "[ApplyEffect {836045448945477}: Damage {836045448945501}] (0 -) <209>");
+            bldr.AppendLine("[01:39:39.776] [@Rivshot] [@Darklink] " +
+                "[Fragmentation Grenade {1624614329384960}] " +
+                "[ApplyEffect {836045448945477}: Damage {836045448945501}] (0 -) <1>");
         }
 
         [TestMethod]
@@ -222,13 +223,13 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 47, 11, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Twos", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 1, 39, 39, 776, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Rivshot", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Khantni", entry.target.name);
+            Assert.AreEqual("Darklink", entry.target.name);
             Assert.AreEqual(true, entry.target.isPlayer);
-            Assert.AreEqual("Affliction (Force)", entry.ability.name);
-            Assert.AreEqual(808192586023173, entry.ability.number);
+            Assert.AreEqual("Fragmentation Grenade", entry.ability.name);
+            Assert.AreEqual(1624614329384960, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
             Assert.AreEqual("Damage", entry.effect.name);
@@ -238,7 +239,7 @@ namespace SWTOR.Parser.Tests.ParserTests
             Assert.AreEqual(false, entry.result.isCritical);
             Assert.AreEqual("", entry.result.name);
             Assert.AreEqual("", entry.mitigation.name);
-            Assert.AreEqual(209, entry.threat);
+            Assert.AreEqual(1, entry.threat);
         }
     }
 
@@ -247,9 +248,9 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/01/2012 14:41:33] [@Twos] [@Twos] " + 
-                "[Resurgence {808699392163840}] " + 
-                "[ApplyEffect {836045448945477}: Heal {836045448945500}] (1485*)");
+            bldr.AppendLine("[01:39:40.383] [@Zartok] [@Rivshot] " +
+                "[Revivification {808703687131136}] " +
+                "[ApplyEffect {836045448945477}: Heal {836045448945500}] (347*) <147>");
         }
 
         [TestMethod]
@@ -263,23 +264,23 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 41, 33, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Twos", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 1, 39, 40, 383, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Zartok", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Twos", entry.target.name);
+            Assert.AreEqual("Rivshot", entry.target.name);
             Assert.AreEqual(true, entry.target.isPlayer);
-            Assert.AreEqual("Resurgence", entry.ability.name);
-            Assert.AreEqual(808699392163840, entry.ability.number);
+            Assert.AreEqual("Revivification", entry.ability.name);
+            Assert.AreEqual(808703687131136, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
             Assert.AreEqual("Heal", entry.effect.name);
             Assert.AreEqual("", entry.effect.subtype);
             Assert.AreEqual(836045448945500, entry.effect.number);
-            Assert.AreEqual(1485, entry.result.amount);
+            Assert.AreEqual(347, entry.result.amount);
             Assert.AreEqual(true, entry.result.isCritical);
             Assert.AreEqual("", entry.result.name);
             Assert.AreEqual("", entry.mitigation.name);
-            Assert.AreEqual(0, entry.threat);
+            Assert.AreEqual(147, entry.threat);
         }
     }
 
@@ -288,8 +289,8 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/01/2012 14:25:55] [@Idrurrez] [] " + 
-                "[Seethe {808226945761280}] " + 
+            bldr.AppendLine("[01:41:08.649] [@Rivshot] [] " +
+                "[Deliverance {880116108361728}] " +
                 "[Event {836045448945472}: AbilityInterrupt {836045448945482}] ()");
         }
 
@@ -304,12 +305,12 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 25, 55, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 1, 41, 8, 649, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Rivshot", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
             Assert.AreEqual("", entry.target.name);
-            Assert.AreEqual("Seethe", entry.ability.name);
-            Assert.AreEqual(808226945761280, entry.ability.number);
+            Assert.AreEqual("Deliverance", entry.ability.name);
+            Assert.AreEqual(880116108361728, entry.ability.number);
             Assert.AreEqual("Event", entry.@event.name);
             Assert.AreEqual(836045448945472, entry.@event.number);
             Assert.AreEqual("AbilityInterrupt", entry.effect.name);
@@ -329,9 +330,9 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/01/2012 14:25:53] [@Idrurrez] [@Khantni] " +
-                "[Saber Throw {812165430771712}] [ApplyEffect {836045448945477}: Damage {836045448945501}] " +
-                "(1903* energy {836045448940874} (1903 absorbed {836045448945511})) <1903>");
+            bldr.AppendLine("[01:42:38.840] [@Rivshot] [@Sandals] " +
+                "[Fragmentation Grenade {1624614329384960}] [ApplyEffect {836045448945477}: Damage {836045448945501}] " +
+                "(745 kinetic {836045448940873} (223 absorbed {836045448945511})) <745>");
         }
 
         [TestMethod]
@@ -345,26 +346,26 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 25, 53, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 1, 42, 38, 840, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Rivshot", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Khantni", entry.target.name);
+            Assert.AreEqual("Sandals", entry.target.name);
             Assert.AreEqual(true, entry.target.isPlayer);
-            Assert.AreEqual("Saber Throw", entry.ability.name);
-            Assert.AreEqual(812165430771712, entry.ability.number);
+            Assert.AreEqual("Fragmentation Grenade", entry.ability.name);
+            Assert.AreEqual(1624614329384960, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
             Assert.AreEqual("Damage", entry.effect.name);
             Assert.AreEqual("", entry.effect.subtype);
             Assert.AreEqual(836045448945501, entry.effect.number);
-            Assert.AreEqual(1903, entry.result.amount);
-            Assert.AreEqual(true, entry.result.isCritical);
-            Assert.AreEqual("energy", entry.result.name);
-            Assert.AreEqual(836045448940874, entry.result.number);
-            Assert.AreEqual(1903, entry.mitigation.amount);
+            Assert.AreEqual(745, entry.result.amount);
+            Assert.AreEqual(false, entry.result.isCritical);
+            Assert.AreEqual("kinetic", entry.result.name);
+            Assert.AreEqual(836045448940873, entry.result.number);
+            Assert.AreEqual(223, entry.mitigation.amount);
             Assert.AreEqual("absorbed", entry.mitigation.name);
             Assert.AreEqual(836045448945511, entry.mitigation.number);
-            Assert.AreEqual(1903, entry.threat);
+            Assert.AreEqual(745, entry.threat);
         }
     }
 
@@ -373,7 +374,7 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/17/2012 19:49:20] [@Psyfe] [@Argorash] " + 
+            bldr.AppendLine("[09:16:35.166] [@Psyfe] [@Argorash] " + 
                 "[Series of Shots {2299572734918656}] " + 
                 "[ApplyEffect {836045448945477}: Damage {836045448945501}] " + 
                 "(234 energy {836045448940874} -glance {836045448945509} (234 absorbed {836045448945511})) " + 
@@ -391,7 +392,7 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 17, 19, 49, 20, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 9, 16, 35, 166, DateTimeKind.Unspecified), entry.timestamp);
             Assert.AreEqual("Psyfe", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
             Assert.AreEqual("Argorash", entry.target.name);
@@ -421,9 +422,9 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/17/2012 19:45:10] [@Argorash] [@Argorash:Lieutenant Pierce {493302763749376}] " + 
-                "[Heroic Moment: Call on the Force {1412666283261952}] " + 
-                "[ApplyEffect {836045448945477}: Heal {836045448945500}] (378)");
+            bldr.AppendLine("[16:24:12.706] [@Rivder:Malavai Quinn {493307058716672}] [@Rivder] " +
+                "[Imperial Medical Probe {2466118681755907}] " +
+                "[ApplyEffect {836045448945477}: Heal {836045448945500}] (61) <23>");
         }
 
         [TestMethod]
@@ -437,23 +438,24 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 17, 19, 45, 10, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Argorash", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 16, 24, 12, 706, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Rivder:Malavai Quinn", entry.source.name);
+            Assert.AreEqual(493307058716672, entry.source.number);
             Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Argorash:Lieutenant Pierce", entry.target.name);
-            Assert.AreEqual(493302763749376, entry.target.number);
+            Assert.AreEqual("Rivder", entry.target.name);
+            Assert.AreEqual(0, entry.target.number);
             Assert.AreEqual(true, entry.target.isPlayer);
-            Assert.AreEqual("Heroic Moment: Call on the Force", entry.ability.name);
-            Assert.AreEqual(1412666283261952, entry.ability.number);
+            Assert.AreEqual("Imperial Medical Probe", entry.ability.name);
+            Assert.AreEqual(2466118681755907, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
             Assert.AreEqual("Heal", entry.effect.name);
             Assert.AreEqual("", entry.effect.subtype);
             Assert.AreEqual(836045448945500, entry.effect.number);
-            Assert.AreEqual(378, entry.result.amount);
+            Assert.AreEqual(61, entry.result.amount);
             Assert.AreEqual("", entry.result.name);
             Assert.AreEqual(0, entry.result.number);
-            Assert.AreEqual(0, entry.threat);
+            Assert.AreEqual(23, entry.threat);
         }
     }
 
@@ -462,9 +464,9 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/01/2012 14:23:49] [@Idrurrez] [Elite Tastybobble {846623953387520}] " + 
-                "[Saber Throw {812165430771712}]" + 
-                " [ApplyEffect {836045448945477}: Damage {836045448945501}] (1002 energy {836045448940874}) <1002>");
+            bldr.AppendLine("[16:24:12.606] [Krayt Street Thrasher {670156632096768}] [@Rivder] " +
+                "[Melee Attack {813445331025920}] " +
+                "[ApplyEffect {836045448945477}: Damage {836045448945501}] (48 kinetic {836045448940873}) <48>");
         }
 
         [TestMethod]
@@ -478,23 +480,24 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 23, 49, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Idrurrez", entry.source.name);
-            Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Elite Tastybobble", entry.target.name);
-            Assert.AreEqual(846623953387520, entry.target.number);
-            Assert.AreEqual(false, entry.target.isPlayer);
-            Assert.AreEqual("Saber Throw", entry.ability.name);
-            Assert.AreEqual(812165430771712, entry.ability.number);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 16, 24, 12, 606, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Krayt Street Thrasher", entry.source.name);
+            Assert.AreEqual(670156632096768, entry.source.number);
+            Assert.AreEqual(false, entry.source.isPlayer);
+            Assert.AreEqual("Rivder", entry.target.name);
+            Assert.AreEqual(0, entry.target.number);
+            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Melee Attack", entry.ability.name);
+            Assert.AreEqual(813445331025920, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
             Assert.AreEqual("Damage", entry.effect.name);
             Assert.AreEqual("", entry.effect.subtype);
             Assert.AreEqual(836045448945501, entry.effect.number);
-            Assert.AreEqual(1002, entry.result.amount);
-            Assert.AreEqual("energy", entry.result.name);
-            Assert.AreEqual(836045448940874, entry.result.number);
-            Assert.AreEqual(1002, entry.threat);
+            Assert.AreEqual(48, entry.result.amount);
+            Assert.AreEqual("kinetic", entry.result.name);
+            Assert.AreEqual(836045448940873, entry.result.number);
+            Assert.AreEqual(48, entry.threat);
         }
     }
 
@@ -503,8 +506,8 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/01/2012 14:23:49] [@Idrurrez] [@Idrurrez] [] " + 
-                "[Restore {836045448945476}: focus point {836045448938496}] (3)");
+            bldr.AppendLine("[16:24:13.762] [@Rivder] [@Rivder] [] " +
+                "[Restore {836045448945476}: rage point {836045448938497}] (1)");
         }
 
 
@@ -519,18 +522,18 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 23, 49, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 16, 24, 13, 762, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Rivder", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Idrurrez", entry.target.name);
+            Assert.AreEqual("Rivder", entry.target.name);
             Assert.AreEqual(true, entry.target.isPlayer);
             Assert.AreEqual("", entry.ability.name);
             Assert.AreEqual("Restore", entry.@event.name);
             Assert.AreEqual(836045448945476, entry.@event.number);
-            Assert.AreEqual("focus point", entry.effect.name);
+            Assert.AreEqual("rage point", entry.effect.name);
             Assert.AreEqual("", entry.effect.subtype);
-            Assert.AreEqual(836045448938496, entry.effect.number);
-            Assert.AreEqual(3, entry.result.amount);
+            Assert.AreEqual(836045448938497, entry.effect.number);
+            Assert.AreEqual(1, entry.result.amount);
         }
     }
 
@@ -539,9 +542,9 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.AppendLine("[03/01/2012 14:19:14] [@Idrurrez] [@Idrurrez] " + 
-                "[Force Might {1781496599805952}] " + 
-                "[ApplyEffect {836045448945477}: Lucky Shots {1781496599806223}] ()");
+            bldr.AppendLine("[16:16:52.674] [@Rivder] [@Rivder] " +
+                "[Ravage {1261367470325760}] " +
+                "[ApplyEffect {836045448945477}: Unshakable {1261367470326274}] ()");
         }
 
         [TestMethod]
@@ -555,19 +558,20 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(new DateTime(2012, 3, 1, 14, 19, 14, DateTimeKind.Unspecified), entry.timestamp);
-            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual(new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 16, 16, 52, 674, DateTimeKind.Unspecified), entry.timestamp);
+            Assert.AreEqual("Rivder", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
-            Assert.AreEqual("Idrurrez", entry.target.name);
+            Assert.AreEqual("Rivder", entry.target.name);
             Assert.AreEqual(true, entry.target.isPlayer);
-            Assert.AreEqual("Force Might", entry.ability.name);
-            Assert.AreEqual(1781496599805952, entry.ability.number);
+            Assert.AreEqual("Ravage", entry.ability.name);
+            Assert.AreEqual(1261367470325760, entry.ability.number);
             Assert.AreEqual("ApplyEffect", entry.@event.name);
             Assert.AreEqual(836045448945477, entry.@event.number);
-            Assert.AreEqual("Lucky Shots", entry.effect.name);
+            Assert.AreEqual("Unshakable", entry.effect.name);
             Assert.AreEqual("", entry.effect.subtype);
-            Assert.AreEqual(1781496599806223, entry.effect.number);
+            Assert.AreEqual(1261367470326274, entry.effect.number);
             Assert.AreEqual(0, entry.result.amount);
+            Assert.AreEqual(0, entry.threat);
         }
     }
 
@@ -576,9 +580,9 @@ namespace SWTOR.Parser.Tests.ParserTests
     {
         public override void BuildTestString(StringBuilder bldr)
         {
-            bldr.Append("[03/01/2012 14:35:20] [@Idrurrez] [@Khantni] " +
-                         "[Force Clap {2848585519464448}] " +
-                         "[ApplyEffect {836045448945477}: Stunned (Physical) {2848585519464704}] ()");
+            bldr.Append("[16:17:39.833] [@Rivder] [Krayt Slicer {670139452227584}] " +
+                         "[Smash {807801743998976}] " +
+                         "[ApplyEffect {836045448945477}: Stunned (Physical) {807801743999258}] ()");
         }
 
         [TestMethod]
@@ -606,8 +610,8 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual(entry.ability.name, "Force Clap");
-            Assert.AreEqual(entry.ability.number, 2848585519464448);
+            Assert.AreEqual(entry.ability.name, "Smash");
+            Assert.AreEqual(entry.ability.number, 807801743998976);
         }
 
         [TestMethod]
@@ -625,11 +629,11 @@ namespace SWTOR.Parser.Tests.ParserTests
             Assert.AreEqual(entry.@event.number, 836045448945477);
             Assert.AreEqual(entry.effect.name, "Stunned");
             Assert.AreEqual(entry.effect.subtype, "Physical");
-            Assert.AreEqual(entry.effect.number, 2848585519464704);
+            Assert.AreEqual(entry.effect.number, 807801743999258);
         }
 
         [TestMethod]
-        public void Parse_Should_Return_Player_Khantni_As_Target()
+        public void Parse_Should_Return_Krayt_Slicer_As_Target()
         {
             // Arrange
             
@@ -639,12 +643,13 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual("Khantni", entry.target.name);
-            Assert.AreEqual(true, entry.target.isPlayer);
+            Assert.AreEqual("Krayt Slicer", entry.target.name);
+            Assert.AreEqual(false, entry.target.isPlayer);
+            Assert.AreEqual(670139452227584, entry.target.number);
         }
 
         [TestMethod]
-        public void Parse_Should_Return_Player_Idrurrez_As_Source()
+        public void Parse_Should_Return_Player_Rivder_As_Source()
         {
             // Arrange
 
@@ -653,7 +658,7 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            Assert.AreEqual("Idrurrez", entry.source.name);
+            Assert.AreEqual("Rivder", entry.source.name);
             Assert.AreEqual(true, entry.source.isPlayer);
         }
 
@@ -679,7 +684,8 @@ namespace SWTOR.Parser.Tests.ParserTests
 
             // Assert
             var entry = list.First();
-            var expected = new DateTime(2012, 3, 1, 14, 35, 20, DateTimeKind.Unspecified);
+            var expected = new DateTime(DateTime.Today.Year, DateTime.Today.Month, DateTime.Today.Day, 16, 17, 39, 833, DateTimeKind.Unspecified);
+
             Assert.AreEqual(expected, entry.timestamp);
         }
 
