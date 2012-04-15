@@ -60,10 +60,11 @@ namespace SWTOR.Parser
             if (log.Count() == 0) return;
 
             LogAnalyzer(data, log);
-            data.Interval = Convert.ToInt32((log.EndTime() - log.StartTime()).TotalSeconds);
-            data.AverageDamagePerSecond = (double)data.TotalDamage / data.Interval;
-            data.AverageHealingPerSecond = (double)data.TotalHealing / data.Interval;
-            data.AverageThreatPerSecond = (double)data.TotalThreat / data.Interval;
+            data.StartTime = log.StartTime();
+            data.EndTime = log.EndTime();
+            data.AverageDamagePerSecond = (double)data.TotalDamage / data.Interval.TotalSeconds;
+            data.AverageHealingPerSecond = (double)data.TotalHealing / data.Interval.TotalSeconds;
+            data.AverageThreatPerSecond = (double)data.TotalThreat / data.Interval.TotalSeconds;
         }
 
         private void LogAnalyzer(ILogMetrics data, IEnumerable<LogEntry> log)

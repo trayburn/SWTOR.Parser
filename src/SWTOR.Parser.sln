@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTOR.Parser", "SWTOR.Parser\SWTOR.Parser.csproj", "{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTOR.Parser.Tests", "SWTOR.Parser.Tests\SWTOR.Parser.Tests.csproj", "{204E1E03-BABB-4B2E-AC43-7B6D3C87E918}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTOR.Web", "SWTOR.Web\SWTOR.Web.csproj", "{F217B7A9-EEF9-48AF-944E-15D915A8CDF4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3FCDD13C-714A-48E1-B97A-CFE0AD74F8C0}"
@@ -16,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTOR.Web.Tests", "SWTOR.Web.Tests\SWTOR.Web.Tests.csproj", "{0F4623EF-6ECB-488A-AB8D-369A131C4044}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SWTOR.Parser.Tests", "SWTOR.Parser.Tests\SWTOR.Parser.Tests.csproj", "{A8A3BA9C-CB80-45DD-8B97-8B5C0D0692BD}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
@@ -32,12 +32,6 @@ Global
 		{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}.Default|Any CPU.ActiveCfg = Debug|Any CPU
 		{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00D4D026-DA8C-4CB7-A402-6ECA0039DC30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{204E1E03-BABB-4B2E-AC43-7B6D3C87E918}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{204E1E03-BABB-4B2E-AC43-7B6D3C87E918}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{204E1E03-BABB-4B2E-AC43-7B6D3C87E918}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{204E1E03-BABB-4B2E-AC43-7B6D3C87E918}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{204E1E03-BABB-4B2E-AC43-7B6D3C87E918}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{204E1E03-BABB-4B2E-AC43-7B6D3C87E918}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F217B7A9-EEF9-48AF-944E-15D915A8CDF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F217B7A9-EEF9-48AF-944E-15D915A8CDF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F217B7A9-EEF9-48AF-944E-15D915A8CDF4}.Default|Any CPU.ActiveCfg = Debug|Any CPU
@@ -50,6 +44,12 @@ Global
 		{0F4623EF-6ECB-488A-AB8D-369A131C4044}.Default|Any CPU.Build.0 = Debug|Any CPU
 		{0F4623EF-6ECB-488A-AB8D-369A131C4044}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F4623EF-6ECB-488A-AB8D-369A131C4044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A3BA9C-CB80-45DD-8B97-8B5C0D0692BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A3BA9C-CB80-45DD-8B97-8B5C0D0692BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A3BA9C-CB80-45DD-8B97-8B5C0D0692BD}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A3BA9C-CB80-45DD-8B97-8B5C0D0692BD}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{A8A3BA9C-CB80-45DD-8B97-8B5C0D0692BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A3BA9C-CB80-45DD-8B97-8B5C0D0692BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

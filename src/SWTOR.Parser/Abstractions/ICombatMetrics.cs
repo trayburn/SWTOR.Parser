@@ -6,7 +6,9 @@ namespace SWTOR.Parser.Domain
 {
     public interface ICombatMetrics : ILogMetrics
     {
-        int Interval { get; set; }
+        DateTime StartTime { get; set; }
+        DateTime EndTime { get; set; }
+        TimeSpan Interval { get; }
         double AverageDamagePerSecond { get; set; }
         double AverageHealingPerSecond { get; set; }
         double AverageThreatPerSecond { get; set; }
