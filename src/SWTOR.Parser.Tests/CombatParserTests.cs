@@ -151,6 +151,19 @@ namespace SWTOR.Parser.Tests.CombatParserTests
         }
 
         [TestMethod]
+        public void Handle_Exit_Without_A_Start()
+        {
+            // Arrange
+            h.Heal(player, player, "SmallHeal", 500).Tick().ExitCombat(player);
+
+            // Act
+            var res = target.Parse(log);
+
+            //Assert
+            Assert.AreEqual(0, res.Combats.Count);
+        }
+
+        [TestMethod]
         public void Given_One_Combat_When_Parse_Then_Threat_In_AbilityCounts()
         {
             // Arrange

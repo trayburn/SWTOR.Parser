@@ -125,7 +125,7 @@ namespace SWTOR.Parser
                 if (currentCombat != null)
                     currentCombat.Log.Add(logEntry);
 
-                if (logEntry.effect.name == "ExitCombat")
+                if (logEntry.effect.name == "ExitCombat" && currentCombat != null)
                 {
                     cLog.Combats.Add(currentCombat);
                     currentCombat = null;
