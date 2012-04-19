@@ -16,7 +16,7 @@
 
     Func<Tuple<SWTOR.Parser.Domain.ILogMetrics, string, string>, object> abilityReport =
     @<div class="abilities-used">
-        <table id="ability-table-@item.Item2-@item.Item3">
+        <table id="ability-table-@item.Item2-@item.Item3" class="ability-table">
             <thead>
                 <tr>
                     <th>
@@ -90,11 +90,6 @@
                 }
             </tbody>
         </table>
-        <script>
-            $(document).ready(function () {
-                $('#ability-table-@item.Item2-@item.Item3').dataTable({ "bJQueryUI": true, "aaSorting": [[1, "desc"],[0, "asc"]] });
-            });
-        </script>
     </div>;
 
     Func<SWTOR.Parser.Domain.ILogMetrics, object> totalDamage =
@@ -204,7 +199,7 @@
     {
         var combatIndex = Model.Combats.IndexOf(combat) + 1;
         <div id="combat-@combatIndex">
-            <div id="combat-@combatIndex-accordian">
+            <div id="combat-@combatIndex-accordian" class="accordian">
                 <h3>
                     <a href="#combat-details-@combatIndex">Combat Details</a></h3>
                 <div class="combat-details">
@@ -215,26 +210,26 @@
                 @abilityReport(new Tuple<SWTOR.Parser.Domain.ILogMetrics, string, string>(combat, combatIndex.ToString(), ""))
                 <h3>
                     <a href="#player-details-@combatIndex">Player Details</a></h3>
-                <div id="character-tabs-@combatIndex">
+                <div id="character-tabs-@combatIndex" class="tabs">
                     <ul>
                         @foreach (var charKey in combat.Characters.Keys)
                         {
-                            var safeKey = charKey.Replace(":", "-").Replace(" ", "").Replace("'","");
+                            var safeKey = charKey.Replace(":", "-").Replace(" ", "").Replace("'","").Replace(",","");
                             <li><a href="#character-@combatIndex-@safeKey">@charKey</a></li>
                         }
                     </ul>
                     @foreach (var charKey in combat.Characters.Keys)
                     {
-                        var safeKey = charKey.Replace(":", "-").Replace(" ", "").Replace("'", "");
+                        var safeKey = charKey.Replace(":", "-").Replace(" ", "").Replace("'", "").Replace(",", "");
                         var charData = combat.Characters[charKey];
                         <div id="character-@combatIndex-@safeKey">
-                            <div id="st-tabs-@combatIndex-@safeKey">
+                            <div id="st-tabs-@combatIndex-@safeKey" class="tabs">
                                 <ul>
                                     <li><a href="#source-@combatIndex-@safeKey">Outgoing</a></li>
                                     <li><a href="#target-@combatIndex-@safeKey">Incoming</a></li>
                                 </ul>
                                 <div id="source-@combatIndex-@safeKey">
-                                    <div id="character-accordian-@combatIndex-@safeKey-source">
+                                    <div id="character-accordian-@combatIndex-@safeKey-source" class="accordian">
                                         <h3>
                                             <a href="#combat-details-@combatIndex">Outgoing Combat Details</a></h3>
                                         <div class="combat-details">
@@ -246,7 +241,7 @@
                                     </div>
                                 </div>
                                 <div id="target-@combatIndex-@safeKey">
-                                    <div id="character-accordian-@combatIndex-@safeKey-target">
+                                    <div id="character-accordian-@combatIndex-@safeKey-target" class="accordian">
                                         <h3>
                                             <a href="#combat-details-@combatIndex">Incoming Details</a></h3>
                                         <div class="combat-details">
@@ -258,41 +253,25 @@
                                     </div>
                                 </div>
                             </div>
-                            <script>
-                                $(function () { $("#st-tabs-@combatIndex-@safeKey").tabs(); }); 
-                            </script>
-                            <script>
-                                $(function () {
-                                    $("#character-accordian-@combatIndex-@safeKey-source").accordion({
-                                        autoHeight: false
-                                    });
-                                });
-                            </script>
-                            <script>
-                                $(function () {
-                                    $("#character-accordian-@combatIndex-@safeKey-target").accordion({
-                                        autoHeight: false
-                                    });
-                                });
-                            </script>
                         </div>
                     }
                 </div>
-                <script>
-                    $(function () { $("#character-tabs-@combatIndex").tabs(); });
-                </script>
+
             </div>
         </div>
-        <script>
-            $(function () {
-                $("#combat-@combatIndex-accordian").accordion({
-                    autoHeight: false
-                });
-            });
-        </script>
+
 
     }
 </div>
 <script>
     $(function () { $('#combat-tabs').tabs(); }); 
+    $(document).ready(function () {
+        $('.ability-table').dataTable({ "bJQueryUI": true, "aaSorting": [[1, "desc"],[0, "asc"]] });
+    });
+    $(function () { $(".tabs").tabs(); }); 
+    $(function () {
+        $(".accordian").accordion({
+            autoHeight: false
+        });
+    });
 </script>
